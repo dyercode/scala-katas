@@ -5,7 +5,7 @@ object Dependencies {
   // Versions
 
   // Libraries
-  val scalaTest = "org.scalatest" %% "scalatest" % "2.2.6"
+  val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5"
   val parserCombinators = "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4"
 
   // Projects
