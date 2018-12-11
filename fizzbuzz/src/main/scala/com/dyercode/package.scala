@@ -11,16 +11,16 @@ package object fizzbuzz {
     }
   }
 
-  private def divisibleBy(n: Int, x: Int): Boolean =  x % n == 0
+  private def divisibleBy(n: Int, x: Int): Boolean = x % n == 0
 
   private def numberContains(n: Int, x: Int): Boolean = x.toString contains n.toString
 
-  private def divisibleByOrContains(n: Int)(x: Int) = divisibleBy(n,x) || numberContains(n,x)
+  private def divisibleByOrContains(n: Int)(x: Int) = divisibleBy(n, x) || numberContains(n, x)
 
   def isFizz: Int => Boolean = divisibleByOrContains(3)
 
   def isBuzz: Int => Boolean = divisibleByOrContains(5)
 
-  def isFizzBuzz(n: Int) = isFizz(n) && isBuzz(n)
+  def isFizzBuzz(n: Int): Boolean = isFizz(n) && isBuzz(n)
 
 }

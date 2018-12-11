@@ -2,16 +2,15 @@ package com.dyercode.evercraft
 
 
 case class Character(
-                      var name: String,
-                      var alignment: Alignment,
-                      _strength: Ability = Ability(),
-                      _dexterity: Ability = Ability(),
-                      _constitution: Ability = Ability(),
-                      _wisdom: Ability = Ability(),
-                      _intelligence: Ability = Ability(),
-                      _charisma: Ability = Ability()
-                      ) {
-
+  var name: String,
+  var alignment: Alignment,
+  _strength: Ability = Ability(),
+  _dexterity: Ability = Ability(),
+  _constitution: Ability = Ability(),
+  _wisdom: Ability = Ability(),
+  _intelligence: Ability = Ability(),
+  _charisma: Ability = Ability()
+) {
   private val _armorClass: Int = 10
   private var _hitPoints = 5
   private val baseDamage = 1
@@ -56,7 +55,7 @@ case class Character(
 
   def hitPoints: Int = _hitPoints + conBonusToBaseHitPoints + levelBonusToHitPoints
 
-  def armorClass = _armorClass + dexterity.modifier
+  def armorClass: Int = _armorClass + dexterity.modifier
 
   def isAHit(roll: Int, target: Character): AttackResult = {
     roll match {
@@ -68,14 +67,12 @@ case class Character(
 
   def attack(target: Character, roll: Int): Unit = {
     isAHit(roll, target) match {
-      case Hit => {
+      case Hit =>
         target damage normalDamage
         experiencePoints += experiencePerAttack
-      }
-      case Critical => {
+      case Critical =>
         target damage criticalDamage
         experiencePoints += experiencePerAttack
-      }
       case _ =>
     }
   }

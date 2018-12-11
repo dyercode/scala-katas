@@ -5,7 +5,7 @@ import org.scalatest.{FunSuite, MustMatchers, OneInstancePerTest}
 class AbilitySuite extends FunSuite with MustMatchers with OneInstancePerTest {
   var ability: Ability = _
 
-  val abilityModifierChart = Map[Int, Int](
+  val abilityModifierChart: Map[Int, Int] = Map[Int, Int](
     1 -> -5,
     2 -> -4,
     3 -> -4,
@@ -57,9 +57,7 @@ class AbilitySuite extends FunSuite with MustMatchers with OneInstancePerTest {
 
   test("modifier must give the proper value for a given ability score") {
     abilityModifierChart foreach {
-      case (score: Int, value: Int) => {
-        assert(Ability(score).modifier === value)
-      }
+      case (score: Int, value: Int) => assert(Ability(score).modifier === value)
     }
   }
 }

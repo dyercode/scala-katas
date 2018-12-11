@@ -1,21 +1,19 @@
 package com.dyercode.evercraft
 
+case class Character(
+  name: String,
+  alignment: Alignment,
+  experiencePoints: Int = 0,
+  strength: Ability = Ability(),
+  dexterity: Ability = Ability(),
+  constitution: Ability = Ability(),
+  wisdom: Ability = Ability(),
+  intelligence: Ability = Ability(),
+  charisma: Ability = Ability()
+) {
+  def gainXp(xp: Int): Character = copy(experiencePoints = experiencePoints + xp)
 
-case class Character(name: String,
-                     alignment: Alignment,
-                     experiencePoints: Int = 0,
-                     strength: Ability = Ability(),
-                     dexterity: Ability = Ability(),
-                     constitution: Ability = Ability(),
-                     wisdom: Ability = Ability(),
-                     intelligence: Ability = Ability(),
-                     charisma: Ability = Ability()
-                    ) {
-  def gainXp(xp: Int) = copy(experiencePoints = experiencePoints + xp)
-
-
-  def changeAlignment(alignment: Alignment) = copy(alignment = alignment)
-
+  def changeAlignment(alignment: Alignment): Character = copy(alignment = alignment)
 
   private val _armorClass: Int = 10
   private var _hitPoints = 5
@@ -50,7 +48,7 @@ case class Character(name: String,
 
   def hitPoints: Int = _hitPoints + conBonusToBaseHitPoints + levelBonusToHitPoints
 
-  def armorClass = _armorClass + dexterity.modifier
+  def armorClass: Int = _armorClass + dexterity.modifier
 
   def isAHit(roll: Int, target: Character): AttackResult = {
     roll match {
@@ -62,14 +60,12 @@ case class Character(name: String,
 
   def attack(target: Character, roll: Int): Character = {
     isAHit(roll, target) match {
-      case Hit => {
+      case Hit =>
         target damage normalDamage
         copy(experiencePoints = experiencePerAttack)
-      }
-      case Critical => {
+      case Critical =>
         target damage criticalDamage
         copy(experiencePoints = experiencePerAttack)
-      }
       case _ => this
     }
   }
