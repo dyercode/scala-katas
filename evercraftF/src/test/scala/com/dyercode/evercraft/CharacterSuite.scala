@@ -11,7 +11,7 @@ class CharacterSuite extends FunSuite with MustMatchers with BeforeAndAfter {
   val beatRoll = 11
   val missRoll = 9
   val naturalTwenty = 20
-  val victim = new Character("victim", Neutral)
+  val victim = Character("victim", Neutral)
 
   test("changing character name must be a new character") {
     val char = Character(name, Neutral)

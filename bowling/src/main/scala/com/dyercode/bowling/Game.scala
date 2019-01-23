@@ -4,7 +4,7 @@ import scala.util.matching.Regex
 
 class Game(val tries: String = "") {
   def bowl(pins: String): Game = {
-    new Game(pins + tries)
+    Game(pins + tries)
   }
 
   def splitIntoRounds(throws: String): List[List[Int]] = {

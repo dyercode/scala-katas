@@ -70,7 +70,7 @@ case class Character(
     }
   }
 
-  def damage(points: Int) = _hitPoints -= points
+  def damage(points: Int): Unit = _hitPoints -= points
 
   private def normalDamage(): Int = {
     val initialCalc = baseDamage + strength.modifier
