@@ -12,18 +12,32 @@ class TriangleSpec extends WordSpec with MustMatchers {
   "A triangle" when {
     "which is equilateral" can {
       "be identified as such" in {
-        identify(List(3, 3, 3)) mustBe Equilateral
+        identify((3, 3, 3)) mustBe Equilateral
+      }
+    }
+    "which is isosceles" can {
+      "be identified as such" in {
+        identify((3, 5, 5)) mustBe Isosceles
       }
     }
   }
 
-  def identify(sides: List[Int]): Triangle = {
-    Equilateral
+  type Lengths = (Int, Int, Int)
+
+  def identify(lengths: Lengths): Triangle = {
+    val (a, b, c) = lengths
+    if (a == b) {
+      Equilateral
+    } else {
+      Isosceles
+    }
   }
 
   sealed trait Triangle
 
   final case object Equilateral extends Triangle
+
+  final case object Isosceles extends Triangle
 
 }
 
