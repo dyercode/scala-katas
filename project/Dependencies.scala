@@ -20,4 +20,6 @@ object Dependencies {
   val leapDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
 
   val chopDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
+
+  val triangleDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
 }

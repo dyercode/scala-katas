@@ -34,3 +34,8 @@ lazy val chop = (
   KataProject("chop")
     settings(libraryDependencies ++= leapDependencies)
   )
+
+lazy val triangle = (
+  KataProject("triangle")
+    settings(libraryDependencies ++= triangleDependencies)
+  )
