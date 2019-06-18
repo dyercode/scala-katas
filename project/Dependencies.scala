@@ -5,8 +5,8 @@ object Dependencies {
   // Versions
 
   // Libraries
-  val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5"
-  val parserCombinators = "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.1"
+  val scalaTest = "org.scalatest" %% "scalatest" % "3.0.8"
+  val parserCombinators = "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
 
   // Projects
   val fizzbuzzDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
