@@ -18,10 +18,12 @@ class Game(val tries: String = "") {
     }
 
     throws match {
-      case "" => Nil
+      case ""        => Nil
       case strike(x) => List(10) :: splitIntoRounds(x)
-      case spare(x, rest) => List(x.toInt, 10 - x.toInt) :: splitIntoRounds(rest)
-      case normal(f1, f2, rest) => List(f1, f2).map(scoreToInt) :: splitIntoRounds(rest)
+      case spare(x, rest) =>
+        List(x.toInt, 10 - x.toInt) :: splitIntoRounds(rest)
+      case normal(f1, f2, rest) =>
+        List(f1, f2).map(scoreToInt) :: splitIntoRounds(rest)
     }
   }
 
@@ -30,9 +32,10 @@ class Game(val tries: String = "") {
 
     def sumFrames(remainingRounds: List[List[Int]]): List[List[Int]] = {
       remainingRounds match {
-        case Nil => Nil
+        case Nil         => Nil
         case head :: Nil => head :: Nil
-        case head :: tail if head.head == 10 => List(10 + tail.flatten.take(2).sum) :: sumFrames(tail)
+        case head :: tail if head.head == 10 =>
+          List(10 + tail.flatten.take(2).sum) :: sumFrames(tail)
         case _ :: tail => sumFrames(tail)
       }
     }
