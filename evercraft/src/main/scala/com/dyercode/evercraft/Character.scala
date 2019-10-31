@@ -1,15 +1,14 @@
 package com.dyercode.evercraft
 
-
 case class Character(
-  var name: String,
-  var alignment: Alignment,
-  _strength: Ability = Ability(),
-  _dexterity: Ability = Ability(),
-  _constitution: Ability = Ability(),
-  _wisdom: Ability = Ability(),
-  _intelligence: Ability = Ability(),
-  _charisma: Ability = Ability()
+    var name: String,
+    var alignment: Alignment,
+    _strength: Ability = Ability(),
+    _dexterity: Ability = Ability(),
+    _constitution: Ability = Ability(),
+    _wisdom: Ability = Ability(),
+    _intelligence: Ability = Ability(),
+    _charisma: Ability = Ability()
 ) {
   private val _armorClass: Int = 10
   private var _hitPoints = 5
@@ -29,11 +28,13 @@ case class Character(
 
   def dexterity: Ability = _dexterity
 
-  def constitution_=(value: Ability): Character = this.copy(_constitution = value)
+  def constitution_=(value: Ability): Character =
+    this.copy(_constitution = value)
 
   def constitution: Ability = _constitution
 
-  def intelligence_=(value: Ability): Character = this.copy(_intelligence = value)
+  def intelligence_=(value: Ability): Character =
+    this.copy(_intelligence = value)
 
   def intelligence: Ability = _intelligence
 
@@ -51,17 +52,19 @@ case class Character(
 
   def levelBonusToHitPoints: Int = (5 + constitution.modifier) * level
 
-  private def conBonusToBaseHitPoints: Int = if (constitution.modifier > 1) constitution.modifier else 1
+  private def conBonusToBaseHitPoints: Int =
+    if (constitution.modifier > 1) constitution.modifier else 1
 
-  def hitPoints: Int = _hitPoints + conBonusToBaseHitPoints + levelBonusToHitPoints
+  def hitPoints: Int =
+    _hitPoints + conBonusToBaseHitPoints + levelBonusToHitPoints
 
   def armorClass: Int = _armorClass + dexterity.modifier
 
   def isAHit(roll: Int, target: Character): AttackResult = {
     roll match {
-      case `criticalHitMatcher` => Critical
+      case `criticalHitMatcher`                            => Critical
       case x if x + strength.modifier >= target.armorClass => Hit
-      case _ => Miss
+      case _                                               => Miss
     }
   }
 
@@ -77,7 +80,7 @@ case class Character(
     }
   }
 
-  def damage(points: Int) = _hitPoints -= points
+  def damage(points: Int): Unit = _hitPoints -= points
 
   private def normalDamage(): Int = {
     val initialCalc = baseDamage + strength.modifier

@@ -24,5 +24,4 @@ package object fizzbuzz {
   def isBuzz: Int => Boolean = divisibleByOrContains(5)
 
   def isFizzBuzz(n: Int): Boolean = isFizz(n) && isBuzz(n)
-
 }

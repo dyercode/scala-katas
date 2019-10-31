@@ -1,19 +1,21 @@
 package com.dyercode.evercraft
 
 case class Character(
-  name: String,
-  alignment: Alignment,
-  experiencePoints: Int = 0,
-  strength: Ability = Ability(),
-  dexterity: Ability = Ability(),
-  constitution: Ability = Ability(),
-  wisdom: Ability = Ability(),
-  intelligence: Ability = Ability(),
-  charisma: Ability = Ability()
+    name: String,
+    alignment: Alignment,
+    experiencePoints: Int = 0,
+    strength: Ability = Ability(),
+    dexterity: Ability = Ability(),
+    constitution: Ability = Ability(),
+    wisdom: Ability = Ability(),
+    intelligence: Ability = Ability(),
+    charisma: Ability = Ability()
 ) {
-  def gainXp(xp: Int): Character = copy(experiencePoints = experiencePoints + xp)
+  def gainXp(xp: Int): Character =
+    copy(experiencePoints = experiencePoints + xp)
 
-  def changeAlignment(alignment: Alignment): Character = copy(alignment = alignment)
+  def changeAlignment(alignment: Alignment): Character =
+    copy(alignment = alignment)
 
   private val _armorClass: Int = 10
   private var _hitPoints = 5
@@ -44,17 +46,19 @@ case class Character(
 
   def levelBonusToHitPoints: Int = (5 + constitution.modifier) * level
 
-  private def conBonusToBaseHitPoints: Int = if (constitution.modifier > 1) constitution.modifier else 1
+  private def conBonusToBaseHitPoints: Int =
+    if (constitution.modifier > 1) constitution.modifier else 1
 
-  def hitPoints: Int = _hitPoints + conBonusToBaseHitPoints + levelBonusToHitPoints
+  def hitPoints: Int =
+    _hitPoints + conBonusToBaseHitPoints + levelBonusToHitPoints
 
   def armorClass: Int = _armorClass + dexterity.modifier
 
   def isAHit(roll: Int, target: Character): AttackResult = {
     roll match {
-      case `criticalHitMatcher` => Critical
+      case `criticalHitMatcher`                            => Critical
       case x if x + strength.modifier >= target.armorClass => Hit
-      case _ => Miss
+      case _                                               => Miss
     }
   }
 

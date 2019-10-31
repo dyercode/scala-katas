@@ -20,6 +20,11 @@ lazy val evercraftF = (
     settings(libraryDependencies ++= evercraftFDependencies)
   )
 
+lazy val fibonacci = (
+  KataProject("fibonacci")
+    settings(libraryDependencies ++= fibonacciDependencies)
+  )
+
 lazy val bowling = (
   KataProject("bowling")
     settings(libraryDependencies ++= bowlingDependencies)

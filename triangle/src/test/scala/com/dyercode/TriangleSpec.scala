@@ -26,7 +26,7 @@ class TriangleSpec extends WordSpec with MustMatchers {
   type Lengths = (Int, Int, Int)
 
   def identify(lengths: Lengths): Triangle = {
-    val (a, b, c) = lengths
+    val (a, b, _) = lengths
     if (a == b) {
       Equilateral
     } else if (b == 4) {
@@ -37,12 +37,7 @@ class TriangleSpec extends WordSpec with MustMatchers {
   }
 
   sealed trait Triangle
-
   final case object Equilateral extends Triangle
-
   final case object Isosceles extends Triangle
-
   final case object Right extends Triangle
-
 }
-
