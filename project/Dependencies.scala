@@ -12,6 +12,7 @@ object Dependencies {
   val fizzbuzzDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val evercraftDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val evercraftFDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
+  val evercraftFrDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val fibonacciDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val bowlingDependencies: Seq[ModuleID] =
     Seq(parserCombinators, scalaTest % Test)
