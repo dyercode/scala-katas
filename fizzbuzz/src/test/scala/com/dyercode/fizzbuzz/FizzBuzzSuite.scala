@@ -1,8 +1,9 @@
 package com.dyercode.fizzbuzz
 
-import org.scalatest.{MustMatchers, FunSuite}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.must
 
-class FizzBuzzSuite extends FunSuite with MustMatchers {
+class FizzBuzzSuite extends AnyFunSuite with must.Matchers {
   val OneToOneHundredList: List[Int] = (1 to 100).toList
 
   test("fizzBuzz must replace all multiples of 3 with a word containing Fizz") {
@@ -11,7 +12,9 @@ class FizzBuzzSuite extends FunSuite with MustMatchers {
     fizzes foreach (x => fizzedList(x - 1) must include("Fizz"))
   }
 
-  test("fizzBuzz must replace all multiples of five with a word containing Buzz") {
+  test(
+    "fizzBuzz must replace all multiples of five with a word containing Buzz"
+  ) {
     val buzzes = OneToOneHundredList filter (_ % 5 == 0)
     val buzzedList = fizzBuzz(OneToOneHundredList)
     buzzes foreach (x => buzzedList(x - 1) must include("Buzz"))

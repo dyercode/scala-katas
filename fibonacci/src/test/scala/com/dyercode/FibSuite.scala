@@ -1,8 +1,9 @@
 package com.dyercode
 
-import org.scalatest.{FunSuite, MustMatchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.must
 
-class FibSuite extends FunSuite with MustMatchers {
+class FibSuite extends AnyFunSuite with must.Matchers {
 
   final def fib(n: Int): Int = n match {
     case 1 => 0

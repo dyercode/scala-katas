@@ -1,8 +1,9 @@
 package com.dyercode
 
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatest.matchers.must
+import org.scalatest.wordspec.AnyWordSpec
 
-class TriangleSpec extends WordSpec with MustMatchers {
+class TriangleSpec extends AnyWordSpec with must.Matchers {
   //  Can be joined into an equilateral triangle. (example: 3, 3, 3)
   //  Can be joined into an isosceles triangle. (example: 5, 5, 3);
   //  Can be joined into a right triangle. (example: 3, 4, 5);

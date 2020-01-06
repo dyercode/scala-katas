@@ -1,8 +1,13 @@
 package com.dyercode.evercraft
 
-import org.scalatest.{BeforeAndAfter, FunSuite, MustMatchers}
+import org.scalatest.BeforeAndAfter
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.must
 
-class CharacterSuite extends FunSuite with MustMatchers with BeforeAndAfter {
+class CharacterSuite
+    extends AnyFunSuite
+    with must.Matchers
+    with BeforeAndAfter {
 
   val name = "name"
   val defaultHitPoints = 5
@@ -11,7 +16,7 @@ class CharacterSuite extends FunSuite with MustMatchers with BeforeAndAfter {
   val beatRoll = 11
   val missRoll = 9
   val naturalTwenty = 20
-  val victim = Character("victim", Neutral)
+  val victim: Character = Character("victim", Neutral)
 
   test("changing character name must be a new character") {
     val char = Character(name, Neutral)
@@ -63,10 +68,12 @@ class CharacterSuite extends FunSuite with MustMatchers with BeforeAndAfter {
     character.isAHit(missRoll, victim) mustBe Miss
   }
 
-  test("If attack is successful, other character takes 1 point of damage when hit") {
+  test(
+    "If attack is successful, other character takes 1 point of damage when hit"
+  ) {
     val initialHitPoints = victim.hitPoints
     val character = Character("name", Neutral)
-    character attack(victim, beatRoll)
+    character attack (victim, beatRoll)
     assert(victim.hitPoints === initialHitPoints - 1)
   }
 
@@ -163,7 +170,9 @@ class CharacterSuite extends FunSuite with MustMatchers with BeforeAndAfter {
     character.armorClass must be(defaultArmorClass + 4)
   }
 
-  test("constitution modifier and level bonus must be added to hit points at level 1") {
+  test(
+    "constitution modifier and level bonus must be added to hit points at level 1"
+  ) {
     val character = Character("name", Neutral, constitution = Ability(18))
     val levelBonus = character.constitution.modifier + 5
     character.hitPoints must be(defaultHitPoints + levelBonus + 4)
@@ -204,10 +213,10 @@ class CharacterSuite extends FunSuite with MustMatchers with BeforeAndAfter {
   test("character hitPoints must increase by 5 plus con mod for each level") {
     val character = Character("name", Neutral)
     val startingHP = character.hitPoints
-    character.gainXp(1000).hitPoints must be(startingHP + 5 + character.constitution.modifier)
+    character.gainXp(1000).hitPoints must be(
+      startingHP + 5 + character.constitution.modifier
+    )
   }
 
-  test("for each level 1 is added to attack roll for every even level achieved") {
-
-  }
+  test("for each level 1 is added to attack roll for every even level achieved") {}
 }

@@ -1,8 +1,13 @@
 package com.dyercode.evercraft
 
-import org.scalatest.{FunSuite, MustMatchers, OneInstancePerTest}
+import org.scalatest.OneInstancePerTest
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.must
 
-class AbilitySuite extends FunSuite with MustMatchers with OneInstancePerTest {
+class AbilitySuite
+    extends AnyFunSuite
+    with must.Matchers
+    with OneInstancePerTest {
   var ability: Ability = _
 
   val abilityModifierChart: Map[Int, Int] = Map[Int, Int](
@@ -30,7 +35,7 @@ class AbilitySuite extends FunSuite with MustMatchers with OneInstancePerTest {
 
   test("score must default to 10") {
     val ability = Ability()
-    ability.score must be (10)
+    ability.score mustBe 10
   }
 
   test("score must be able to be set as low as 1") {

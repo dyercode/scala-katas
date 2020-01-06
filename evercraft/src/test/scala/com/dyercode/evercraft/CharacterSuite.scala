@@ -1,15 +1,12 @@
 package com.dyercode.evercraft
 
-import org.scalatest.{
-  MustMatchers,
-  OneInstancePerTest,
-  BeforeAndAfter,
-  FunSuite
-}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.must
+import org.scalatest.{BeforeAndAfter, OneInstancePerTest}
 
 class CharacterSuite
-    extends FunSuite
-    with MustMatchers
+    extends AnyFunSuite
+    with must.Matchers
     with BeforeAndAfter
     with OneInstancePerTest {
 
@@ -21,10 +18,10 @@ class CharacterSuite
   val missRoll = 9
   val naturalTwenty = 20
   var character: Character = _
-  val victim = new Character("victim", Neutral)
+  val victim: Character = Character("victim", Neutral)
 
   before {
-    character = new Character(name, Neutral)
+    character = Character(name, Neutral)
   }
 
   test("character must have a mutable name") {
@@ -138,7 +135,7 @@ class CharacterSuite
   test("critical hits must instead add double the strength modifier to damage") {
     val newChar = character.strength = Ability(18)
     val initialVictimHitPoints = victim.hitPoints
-    val expectedResultingHitPoints = initialVictimHitPoints - (10)
+    val expectedResultingHitPoints = initialVictimHitPoints - 10
     newChar.attack(victim, naturalTwenty)
     victim.hitPoints must be(expectedResultingHitPoints)
   }

@@ -1,8 +1,9 @@
 package com.dyercode.leap
 
-import org.scalatest.{MustMatchers, FunSuite}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.must
 
-class LeapYearSuite extends FunSuite with MustMatchers {
+class LeapYearSuite extends AnyFunSuite with must.Matchers {
 
   def classifyYear(year: Int): YearClassification = {
     year match {
@@ -28,5 +29,4 @@ class LeapYearSuite extends FunSuite with MustMatchers {
   test("a year not divisble by 4 is a typical common year") {
     classifyYear(7) must be(TypicalCommon)
   }
-
 }

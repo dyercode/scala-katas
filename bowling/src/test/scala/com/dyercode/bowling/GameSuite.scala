@@ -1,8 +1,9 @@
 package com.dyercode.bowling
 
-import org.scalatest.{FunSuite, MustMatchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.must
 
-class GameSuite extends FunSuite with MustMatchers {
+class GameSuite extends AnyFunSuite with must.Matchers {
 
   test("when I bowl a frame and knock down some pins it must be recorded") {
     Game().bowl("1-").score mustBe 1
