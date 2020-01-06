@@ -10,8 +10,7 @@ class CharacterSuite
     with BeforeAndAfter
     with OneInstancePerTest {
 
-  test("has a name") {
-    Character(name = "MyDude")
+  test("has a name and alignment") {
+    Character(name = "MyDude", alignment = Neutral)
   }
-
 }

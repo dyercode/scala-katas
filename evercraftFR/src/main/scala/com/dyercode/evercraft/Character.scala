@@ -1,3 +1,3 @@
 package com.dyercode.evercraft
 
-case class Character(name: String)
+case class Character(name: String, alignment: Alignment)
