@@ -10,4 +10,8 @@ class CharacterSuite
     with BeforeAndAfter
     with OneInstancePerTest {
 
+  test("has a name") {
+    Character(name = "MyDude")
+  }
+
 }

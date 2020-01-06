@@ -1,3 +1,3 @@
 package com.dyercode.evercraft
 
-case class Character
+case class Character(name: String)
