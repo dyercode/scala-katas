@@ -1,5 +1,7 @@
 package com.dyercode.evercraft
 
-case class Ability(stat: Int = 10) {
-  require(stat > 0 && stat < 21)
+case class Ability(value: Int = 10) {
+  require(value > 0 && value < 21)
+
+  def modifier: Int = Math.floorDiv(value - 10, 2)
 }
