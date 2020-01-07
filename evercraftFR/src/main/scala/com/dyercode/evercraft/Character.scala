@@ -26,10 +26,14 @@ object Character {
   implicit val characterCombatant: Combatant[Character] =
     new Combatant[Character] {
       override def armorClass(a: Character): Int = 10
-      override def attack[A: Combatant](roll: Int, d: A): AttackResult =
+      override def attack[B: Combatant](
+          a: Character,
+          roll: Int,
+          d: B
+      ): AttackResult =
         if (roll == 20) Crit
         else {
-          if (roll >= d.armorClass) Hit else Miss
+          if (roll + a.strength.modifier >= d.armorClass) Hit else Miss
         }
 
       override def hitPoints(a: Character): Int = a._hitPoints

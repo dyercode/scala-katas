@@ -80,4 +80,14 @@ class CharacterSuite
     unique.intelligence mustBe Ability()
     unique.charisma mustBe Ability()
   }
+
+  test("adds strength modifier to attack roll") {
+    val billy =
+      Character(name = "Billy", alignment = Good, strength = Ability(12))
+    val baddy = Character(name = "Baddy", alignment = Evil)
+
+    billy.attack(10, baddy) mustBe Hit
+    billy.attack(9, baddy) mustBe Hit
+    billy.attack(8, baddy) mustBe Miss
+  }
 }
