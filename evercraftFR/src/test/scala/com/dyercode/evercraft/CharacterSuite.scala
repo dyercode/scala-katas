@@ -52,4 +52,14 @@ class CharacterSuite
     val hitBaddy = baddy.takeDamage(Hit)
     hitBaddy.hitPoints mustBe 4
   }
+
+  test(
+    "if a roll is a natural 20 then a critical hit is dealt and damage is doubled"
+  ) {
+    val billy = Character(name = "Billy", alignment = Good)
+    val baddy = Character(name = "Baddy", alignment = Good)
+    val ar = billy.attack(20, baddy)
+    val hitBaddy = baddy.takeDamage(ar)
+    hitBaddy.hitPoints mustBe 3
+  }
 }
