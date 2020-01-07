@@ -62,4 +62,12 @@ class CharacterSuite
     val hitBaddy = baddy.takeDamage(ar)
     hitBaddy.hitPoints mustBe 3
   }
+
+  test("a character with 0 or less hitpoints is dead") {
+    val corpse = Character("corpse", Neutral, _hitPoints = 0)
+    val splotch = Character("splotch", Neutral, _hitPoints = -1)
+
+    corpse.dead mustBe true
+    splotch.dead mustBe true
+  }
 }

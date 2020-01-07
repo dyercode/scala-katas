@@ -29,5 +29,7 @@ object Character {
           case Hit  => c.copy(_hitPoints = c._hitPoints - 1)
           case _    => c
         }
+
+      override def dead(a: Character): Boolean = a._hitPoints <= 0
     }
 }
