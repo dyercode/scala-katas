@@ -70,4 +70,14 @@ class CharacterSuite
     corpse.dead mustBe true
     splotch.dead mustBe true
   }
+
+  test("a character has abilities") {
+    val unique = Character("unique", Neutral)
+    unique.strength mustBe Ability()
+    unique.dexterity mustBe Ability()
+    unique.constitution mustBe Ability()
+    unique.wisdom mustBe Ability()
+    unique.intelligence mustBe Ability()
+    unique.charisma mustBe Ability()
+  }
 }

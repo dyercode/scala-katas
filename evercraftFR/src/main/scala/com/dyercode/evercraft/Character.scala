@@ -1,7 +1,17 @@
 package com.dyercode.evercraft
 import com.dyercode.evercraft.Combatant._
 
-case class Character(name: String, alignment: Alignment, _hitPoints: Int = 5)
+case class Character(
+    name: String,
+    alignment: Alignment,
+    _hitPoints: Int = 5,
+    strength: Ability = Ability(),
+    dexterity: Ability = Ability(),
+    constitution: Ability = Ability(),
+    intelligence: Ability = Ability(),
+    wisdom: Ability = Ability(),
+    charisma: Ability = Ability()
+)
 
 sealed trait AttackResult
 case object Crit extends AttackResult
