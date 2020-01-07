@@ -40,12 +40,9 @@ class CharacterSuite
     val billy = Character(name = "Billy", alignment = Good)
     val baddy = Character(name = "Baddy", alignment = Evil)
 
-    // todo - an example of why this is probably not how I'm supposed to use these
-    Combatant[Character].attack(11, baddy) mustBe Hit
-
-    Combat.atk(billy, 11, baddy) mustBe Hit
-    Combat.atk(billy, 10, baddy) mustBe Hit
-    Combat.atk(billy, 9, baddy) mustBe Miss
+    billy.attack(11, baddy) mustBe Hit
+    billy.attack(10, baddy) mustBe Hit
+    billy.attack(9, baddy) mustBe Miss
   }
 
   test(

@@ -15,5 +15,7 @@ object Combatant {
     def hitPoints: Int = c.hitPoints(a)
     def armorClass: Int = c.armorClass(a)
     def takeDamage(ar: AttackResult): A = c.takeDamage(a, ar)
+    def attack[B: Combatant](roll: Int, defender: B): AttackResult =
+      c.attack(roll, defender)
   }
 }
