@@ -1,4 +1,5 @@
 package com.dyercode.evercraft
+import com.dyercode.evercraft.Combatant._
 
 case class Character(name: String, alignment: Alignment, _hitPoints: Int = 5)
 
@@ -14,10 +15,8 @@ object Character {
   implicit val characterCombatant: Combatant[Character] =
     new Combatant[Character] {
       override def armorClass(a: Character): Int = 10
-      override def attack[A](roll: Int, d: A)(
-          implicit defender: Combatant[A]
-      ): AttackResult =
-        if (roll >= defender.armorClass(d)) Hit else Miss
+      override def attack[A: Combatant](roll: Int, d: A): AttackResult =
+        if (roll >= d.armorClass) Hit else Miss
 
       override def hitPoints(a: Character): Int = a._hitPoints
       override def takeDamage(c: Character, ar: AttackResult): Character =

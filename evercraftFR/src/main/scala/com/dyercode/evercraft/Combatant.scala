@@ -5,7 +5,6 @@ trait Combatant[A] {
   def hitPoints(a: A): Int
   def attack[B: Combatant](roll: Int, d: B): AttackResult
   def takeDamage(a: A, ar: AttackResult): A
-
 }
 
 object Combatant {
