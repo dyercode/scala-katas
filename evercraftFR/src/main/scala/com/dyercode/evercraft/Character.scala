@@ -25,7 +25,7 @@ object Character {
 
   implicit val characterCombatant: Combatant[Character] =
     new Combatant[Character] {
-      override def armorClass(a: Character): Int = 10
+      override def armorClass(a: Character): Int = 10 + a.dexterity.modifier
       override def attack[B: Combatant](
           a: Character,
           roll: Int,
@@ -37,15 +37,13 @@ object Character {
         }
 
       override def calculateDamage(c: Character, ar: AttackResult): Int = {
-        Math.max(1, 1 + c.strength.modifier * (if (ar == Crit) 2 else 1))
+        val rawDamage = 1 + c.strength.modifier
+        val critMultiplier = if (ar == Crit) 2 else 1
+        Math.max(1, rawDamage * critMultiplier)
       }
       override def hitPoints(a: Character): Int = a._hitPoints
-      override def takeDamage(c: Character, ar: AttackResult): Character =
-        ar match {
-          case Crit => c.copy(_hitPoints = c._hitPoints - 2)
-          case Hit  => c.copy(_hitPoints = c._hitPoints - 1)
-          case _    => c
-        }
+      override def takeDamage(c: Character, dmg: Int): Character =
+        c.copy(_hitPoints = c._hitPoints - dmg)
 
       override def dead(a: Character): Boolean = a._hitPoints <= 0
     }

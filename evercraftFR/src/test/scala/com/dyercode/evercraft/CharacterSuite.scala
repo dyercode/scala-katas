@@ -49,7 +49,9 @@ class CharacterSuite
     "if attack is successful, other character takes 1 point of damage when hit"
   ) {
     val baddy = Character(name = "Baddy", alignment = Good)
-    val hitBaddy = baddy.takeDamage(Hit)
+    val ar = baddy.attack(19, baddy)
+    val damage = baddy.calculateDamage(ar)
+    val hitBaddy = baddy.takeDamage(damage)
     hitBaddy.hitPoints mustBe 4
   }
 
@@ -58,8 +60,8 @@ class CharacterSuite
   ) {
     val billy = Character(name = "Billy", alignment = Good)
     val baddy = Character(name = "Baddy", alignment = Good)
-    val ar = billy.attack(20, baddy)
-    val hitBaddy = baddy.takeDamage(ar)
+    val damage = billy.calculateDamage(Crit)
+    val hitBaddy = baddy.takeDamage(damage)
     hitBaddy.hitPoints mustBe 3
   }
 
@@ -100,7 +102,7 @@ class CharacterSuite
   test("strength modifier to damage is doubled on a crit") {
     val billy =
       Character(name = "Billy", alignment = Good, strength = Ability(12))
-    billy.calculateDamage(Crit) mustBe 3
+    billy.calculateDamage(Crit) mustBe 4
   }
 
   test("minimum damage is always 1") {
@@ -108,5 +110,11 @@ class CharacterSuite
       Character(name = "Wimpy", alignment = Good, strength = Ability(1))
     wimpy.calculateDamage(Hit) mustBe 1
     wimpy.calculateDamage(Crit) mustBe 1
+  }
+
+  test("dexterity modifier is added to armor class") {
+    val dodgy =
+      Character(name = "Dodgy", alignment = Good, dexterity = Ability(12))
+    dodgy.armorClass mustBe 11
   }
 }
