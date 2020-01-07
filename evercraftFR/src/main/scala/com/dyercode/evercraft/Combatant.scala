@@ -1,8 +1,6 @@
 package com.dyercode.evercraft
 
-import simulacrum.typeclass
-
-@typeclass trait Combatant[A] {
+trait Combatant[A] {
   def armorClass(a: A): Int
   def hitPoints(a: A): Int
   def attack[B: Combatant](roll: Int, d: B): AttackResult
