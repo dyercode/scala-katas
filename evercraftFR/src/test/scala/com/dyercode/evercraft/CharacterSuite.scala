@@ -1,6 +1,7 @@
 package com.dyercode.evercraft
 
 import com.dyercode.evercraft.Character._
+import com.dyercode.evercraft.Combatant._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
 import org.scalatest.{BeforeAndAfter, OneInstancePerTest}
@@ -28,16 +29,16 @@ class CharacterSuite
   }
 
   test("as a combatant I want to have armor class") {
-    implicitly[Combatant[Character]].armorClass mustBe 10
+    Character(name = "billy", alignment = Good).armorClass mustBe 10
   }
 
   test("as a combatant I want to have hitPoints") {
-    implicitly[Combatant[Character]].hitPoints mustBe 5
+    Character(name = "billy", alignment = Good).hitPoints mustBe 5
   }
 
   test("roll must meet or beat opponent's armor class to hit") {
     val billy = Character(name = "Billy", alignment = Good)
-    val baddy = Character(name = "Baddy", alignment = Good)
+    val baddy = Character(name = "Baddy", alignment = Evil)
 
     // todo - an example of why this is probably not how I'm supposed to use these
     Combatant[Character].attack(11, baddy) mustBe Hit
@@ -45,5 +46,13 @@ class CharacterSuite
     Combat.atk(billy, 11, baddy) mustBe Hit
     Combat.atk(billy, 10, baddy) mustBe Hit
     Combat.atk(billy, 9, baddy) mustBe Miss
+  }
+
+  test(
+    "if attack is successful, other character takes 1 point of damage when hit"
+  ) {
+    val baddy = Character(name = "Baddy", alignment = Good)
+    val hitBaddy = baddy.takeDamage(Hit)
+    hitBaddy.hitPoints mustBe 4
   }
 }
