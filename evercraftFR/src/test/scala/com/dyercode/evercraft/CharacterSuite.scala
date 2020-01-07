@@ -90,4 +90,23 @@ class CharacterSuite
     billy.attack(9, baddy) mustBe Hit
     billy.attack(8, baddy) mustBe Miss
   }
+
+  test("adds strength modifier to damage") {
+    val billy =
+      Character(name = "Billy", alignment = Good, strength = Ability(12))
+    billy.calculateDamage(Hit) mustBe 2
+  }
+
+  test("strength modifier to damage is doubled on a crit") {
+    val billy =
+      Character(name = "Billy", alignment = Good, strength = Ability(12))
+    billy.calculateDamage(Crit) mustBe 3
+  }
+
+  test("minimum damage is always 1") {
+    val wimpy =
+      Character(name = "Wimpy", alignment = Good, strength = Ability(1))
+    wimpy.calculateDamage(Hit) mustBe 1
+    wimpy.calculateDamage(Crit) mustBe 1
+  }
 }

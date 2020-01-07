@@ -36,6 +36,9 @@ object Character {
           if (roll + a.strength.modifier >= d.armorClass) Hit else Miss
         }
 
+      override def calculateDamage(c: Character, ar: AttackResult): Int = {
+        Math.max(1, 1 + c.strength.modifier * (if (ar == Crit) 2 else 1))
+      }
       override def hitPoints(a: Character): Int = a._hitPoints
       override def takeDamage(c: Character, ar: AttackResult): Character =
         ar match {
