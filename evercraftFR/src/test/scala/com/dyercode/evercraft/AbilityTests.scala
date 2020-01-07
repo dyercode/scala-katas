@@ -50,8 +50,8 @@ class AbilityTests
     }
   }
 
-  test("abilities have modifiers") {
-    forAll(statModifiers) { (value: Int, modifier: Int) =>
+  forAll(statModifiers) { (value: Int, modifier: Int) =>
+    test(s"ability modifier for $value is $modifier") {
       Ability(value).modifier mustEqual modifier
     }
   }
