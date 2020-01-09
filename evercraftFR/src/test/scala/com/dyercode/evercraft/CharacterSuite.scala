@@ -123,4 +123,10 @@ class CharacterSuite
       Character(name = "Tuffboi", alignment = Good, constitution = Ability(12))
     tuffboi.hitPoints mustBe 6
   }
+
+  test("character can gain experience") {
+    val learny = Character("Learny", Neutral)
+    val learned = learny.gainXp(1)
+    learned.xp mustBe 1
+  }
 }

@@ -10,8 +10,14 @@ case class Character(
     intelligence: Ability = Ability(),
     wisdom: Ability = Ability(),
     charisma: Ability = Ability(),
-    damage: Int = 0
-)
+    damage: Int = 0,
+    xp: Int = 0
+) {
+  // todo - gut tells me to make this a separate thing, too. but starting with simplest way. mostly because I don't know what to call that other thing.
+  def gainXp(xp: Int): Character = {
+    this.copy(xp = this.xp + xp)
+  }
+}
 
 sealed trait AttackResult
 case object Crit extends AttackResult
