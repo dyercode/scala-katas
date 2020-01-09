@@ -51,8 +51,11 @@ object Character {
         val critMultiplier = if (ar == Crit) 2 else 1
         Math.max(1, rawDamage * critMultiplier)
       }
-      override def hitPoints(a: Character): Int =
-        5 + a.constitution.modifier - a.damage
+      override def hitPoints(a: Character): Int = {
+        val cap = Math.max(1, 5 + a.constitution.modifier)
+        cap - a.damage
+      }
+
       override def takeDamage(c: Character, dmg: Int): Character =
         c.copy(damage = c.damage + dmg)
 

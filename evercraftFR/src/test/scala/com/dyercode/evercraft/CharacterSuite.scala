@@ -124,6 +124,12 @@ class CharacterSuite
     tuffboi.hitPoints mustBe 6
   }
 
+  test("hp min is always 1 even with low con") {
+    val frailboi =
+      Character(name = "Frailboi", alignment = Good, constitution = Ability(1))
+    frailboi.hitPoints mustBe 1
+  }
+
   test("character can gain experience") {
     val learny = Character("Learny", Neutral)
     val learned = learny.gainXp(1)
