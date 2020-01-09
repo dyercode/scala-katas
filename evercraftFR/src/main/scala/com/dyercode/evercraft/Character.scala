@@ -37,13 +37,13 @@ object Character {
     new Combatant[Character] {
       override def armorClass(a: Character): Int = 10 + a.dexterity.modifier
       override def attack[B: Combatant](
-          a: Character,
+          c: Character,
           roll: Int,
           d: B
       ): AttackResult =
         if (roll == 20) Crit
         else {
-          if (roll + a.strength.modifier >= d.armorClass) Hit else Miss
+          if (roll + attackBonus(c) >= d.armorClass) Hit else Miss
         }
 
       override def calculateDamage(c: Character, ar: AttackResult): Int = {
@@ -52,7 +52,7 @@ object Character {
         Math.max(1, rawDamage * critMultiplier)
       }
       override def hitPoints(a: Character): Int = {
-        val cap = Math.max(1, 5 + a.constitution.modifier)
+        val cap = Math.max(1, 5 + a.constitution.modifier) * a.level
         cap - a.damage
       }
 
@@ -60,5 +60,9 @@ object Character {
         c.copy(damage = c.damage + dmg)
 
       override def dead(a: Character): Boolean = hitPoints(a) <= 0
+
+      override def attackBonus(a: Character): Int = {
+        a.strength.modifier + (a.level / 2)
+      }
     }
 }

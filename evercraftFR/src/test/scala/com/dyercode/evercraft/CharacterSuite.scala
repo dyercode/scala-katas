@@ -5,7 +5,6 @@ import com.dyercode.evercraft.Combatant._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
 import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor2}
-import org.scalatest.{BeforeAndAfter, OneInstancePerTest}
 
 class CharacterSuite
     extends AnyFunSuite
@@ -193,4 +192,71 @@ class CharacterSuite
       moreLearned.level mustBe 3
     }
   }
+
+  test("hit points increase at each level") {
+    val hpLevel = Table(
+      ("hp", "level"),
+      (14, 1000),
+      (21, 2000),
+      (28, 3000),
+      (35, 4000),
+      (42, 5000),
+      (49, 6000),
+      (56, 7000),
+      (63, 8000),
+      (70, 9000),
+      (77, 10_000),
+      (84, 11_000),
+      (91, 12_000),
+      (98, 13_000),
+      (105, 14_000),
+      (112, 15_000),
+      (119, 16_000),
+      (126, 17_000),
+      (133, 18_000),
+      (140, 19_000)
+    )
+
+    forAll(hpLevel) { (hp: Int, xp: Int) =>
+      Character(
+        name = "Healthy",
+        alignment = Neutral,
+        xp = xp,
+        constitution = Ability(14)
+      ).hitPoints mustBe hp
+    }
+  }
+
+  test("each even level increases attack bonus by one") {
+    val attackLvl = Table(
+      ("level", "level"),
+      (1, 1000),
+      (1, 2000),
+      (2, 3000),
+      (2, 4000),
+      (3, 5000),
+      (3, 6000),
+      (4, 7000),
+      (4, 8000),
+      (5, 9000),
+      (5, 10_000),
+      (6, 11_000),
+      (6, 12_000),
+      (7, 13_000),
+      (7, 14_000),
+      (8, 15_000),
+      (8, 16_000),
+      (9, 17_000),
+      (9, 18_000),
+      (10, 19_000)
+    )
+
+    forAll(attackLvl) { (attack: Int, xp: Int) =>
+      val billy =
+        Character(name = "Billy", alignment = Good, xp = xp)
+
+      billy.attackBonus mustBe attack
+    }
+  }
+
 }
