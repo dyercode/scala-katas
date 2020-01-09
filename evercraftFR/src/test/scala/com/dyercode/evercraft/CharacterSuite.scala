@@ -4,13 +4,13 @@ import com.dyercode.evercraft.Character._
 import com.dyercode.evercraft.Combatant._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
+import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor2}
 import org.scalatest.{BeforeAndAfter, OneInstancePerTest}
 
 class CharacterSuite
     extends AnyFunSuite
     with must.Matchers
-    with BeforeAndAfter
-    with OneInstancePerTest {
+    with TableDrivenPropertyChecks {
 
   test("has a name and alignment") {
     val myDude = Character(name = "MyDude", alignment = Neutral)
@@ -141,11 +141,56 @@ class CharacterSuite
     learny.level mustBe 1
   }
 
-  test("character gains a level every 1000xp") {
-    val learny = Character("Learny", Neutral)
-    val learned = learny.gainXp(1000)
-    learned.level mustBe 2
-    val moreLearned = learned.gainXp(1000)
-    moreLearned.level mustBe 3
+  val xpLevel: TableFor2[Int, Int] = Table(
+    ("xp", "level"),
+    (0, 1),
+    (999, 1),
+    (1000, 2),
+    (1999, 2),
+    (2000, 3),
+    (2999, 3),
+    (3000, 4),
+    (3999, 4),
+    (4000, 5),
+    (4999, 5),
+    (5000, 6),
+    (5999, 6),
+    (6000, 7),
+    (6999, 7),
+    (7000, 8),
+    (7999, 8),
+    (8000, 9),
+    (9990, 9),
+    (9000, 10),
+    (9999, 10),
+    (10_000, 11),
+    (10_999, 11),
+    (11_000, 12),
+    (11_999, 12),
+    (12_000, 13),
+    (12_999, 13),
+    (13_000, 14),
+    (13_999, 14),
+    (14_000, 15),
+    (14_999, 15),
+    (15_000, 16),
+    (15_999, 16),
+    (16_000, 17),
+    (16_999, 17),
+    (17_000, 18),
+    (17_999, 18),
+    (18_000, 19),
+    (18_999, 19),
+    (19_000, 20)
+  )
+
+  forAll(xpLevel) { (xp: Int, level: Int) =>
+    test(s"character is level $level at ${xp}xp") {
+      val learny = Character("Learny", Neutral)
+      val learned = learny.gainXp(1000)
+      learned.level mustBe 2
+      val moreLearned = learned.gainXp(1000)
+      moreLearned.level mustBe 3
+    }
   }
 }
