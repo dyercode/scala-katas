@@ -140,6 +140,8 @@ class CharacterSuite
     learny.level mustBe 1
   }
 
+  ignore("attacking adds 10xp") {}
+
   val xpLevel: TableFor2[Int, Int] = Table(
     ("xp", "level"),
     (0, 1),
