@@ -17,6 +17,10 @@ case class Character(
   def gainXp(xp: Int): Character = {
     this.copy(xp = this.xp + xp)
   }
+
+  def level: Int = {
+    1 + (xp / 1000)
+  }
 }
 
 sealed trait AttackResult

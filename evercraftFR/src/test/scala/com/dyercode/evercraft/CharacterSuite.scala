@@ -129,4 +129,17 @@ class CharacterSuite
     val learned = learny.gainXp(1)
     learned.xp mustBe 1
   }
+
+  test("character has level") {
+    val learny = Character("Learny", Neutral)
+    learny.level mustBe 1
+  }
+
+  test("character gains a level every 1000xp") {
+    val learny = Character("Learny", Neutral)
+    val learned = learny.gainXp(1000)
+    learned.level mustBe 2
+    val moreLearned = learned.gainXp(1000)
+    moreLearned.level mustBe 3
+  }
 }
