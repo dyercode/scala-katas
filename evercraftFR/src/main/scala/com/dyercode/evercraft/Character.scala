@@ -4,13 +4,13 @@ import com.dyercode.evercraft.Combatant._
 case class Character(
     name: String,
     alignment: Alignment,
-    _hitPoints: Int = 5,
     strength: Ability = Ability(),
     dexterity: Ability = Ability(),
     constitution: Ability = Ability(),
     intelligence: Ability = Ability(),
     wisdom: Ability = Ability(),
-    charisma: Ability = Ability()
+    charisma: Ability = Ability(),
+    damage: Int = 0
 )
 
 sealed trait AttackResult
@@ -41,10 +41,11 @@ object Character {
         val critMultiplier = if (ar == Crit) 2 else 1
         Math.max(1, rawDamage * critMultiplier)
       }
-      override def hitPoints(a: Character): Int = a._hitPoints
+      override def hitPoints(a: Character): Int =
+        5 + a.constitution.modifier - a.damage
       override def takeDamage(c: Character, dmg: Int): Character =
-        c.copy(_hitPoints = c._hitPoints - dmg)
+        c.copy(damage = c.damage + dmg)
 
-      override def dead(a: Character): Boolean = a._hitPoints <= 0
+      override def dead(a: Character): Boolean = hitPoints(a) <= 0
     }
 }

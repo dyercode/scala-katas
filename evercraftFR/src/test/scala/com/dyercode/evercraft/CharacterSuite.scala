@@ -66,8 +66,8 @@ class CharacterSuite
   }
 
   test("a character with 0 or less hitpoints is dead") {
-    val corpse = Character("corpse", Neutral, _hitPoints = 0)
-    val splotch = Character("splotch", Neutral, _hitPoints = -1)
+    val corpse = Character("corpse", Neutral, damage = 5)
+    val splotch = Character("splotch", Neutral, damage = 6)
 
     corpse.dead mustBe true
     splotch.dead mustBe true
@@ -116,5 +116,11 @@ class CharacterSuite
     val dodgy =
       Character(name = "Dodgy", alignment = Good, dexterity = Ability(12))
     dodgy.armorClass mustBe 11
+  }
+
+  test("constitution modifier is added to hitpoints") {
+    val tuffboi =
+      Character(name = "Tuffboi", alignment = Good, constitution = Ability(12))
+    tuffboi.hitPoints mustBe 6
   }
 }
