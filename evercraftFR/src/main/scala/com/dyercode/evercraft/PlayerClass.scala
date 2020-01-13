@@ -14,6 +14,7 @@ trait PlayerClass {
   def baseHitPoints: Int = 5
   def critMultiplier: Int = 2
   def attackModifier(ch: Character): Int = ch.level / 2
+  def attackStatMod(ch: Character): Int = ch.strength.modifier
   def targetAcModifier[A: Combatant](ch: A): Int = ch.armorClass
 }
 
@@ -29,4 +30,5 @@ object Rogue extends PlayerClass {
   override def targetAcModifier[A: Combatant](ch: A): Int = {
     ch.armorClass - Math.max(0, ch.acDexBonus)
   }
+  override def attackStatMod(ch: Character): Int = ch.dexterity.modifier
 }

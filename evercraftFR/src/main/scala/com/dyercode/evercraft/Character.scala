@@ -73,7 +73,7 @@ object Character {
       override def dead(a: Character): Boolean = hitPoints(a) <= 0
 
       override def attackBonus(a: Character): Int = {
-        a.strength.modifier + a.playerClass.attackModifier(a)
+        a.playerClass.attackStatMod(a) + a.playerClass.attackModifier(a)
       }
 
       override def acDexBonus(a: Character): Int = a.dexterity.modifier
