@@ -11,6 +11,7 @@ trait PlayerClass {
    */
 
   def baseHitPoints: Int
+  def attackModifier(level: Int): Int
 }
 
 //object Class {
@@ -24,8 +25,12 @@ object DefaultClass extends PlayerClass {
 //    override def baseHitPoints(a: DefaultCharacterClass): Int = 5
 //  }
   override def baseHitPoints: Int = 5
+
+  override def attackModifier(level: Int): Int = level / 2
 }
 
 object Fighter extends PlayerClass {
   override def baseHitPoints: Int = 10
+
+  override def attackModifier(level: Int): Int = level
 }
