@@ -40,6 +40,7 @@ object Character {
   implicit val characterCombatant: Combatant[Character] =
     new Combatant[Character] {
       // TODO - consider returning and object with a breakdown of bonuses, rather than an Int
+      // This will make doing things like ignoring specific modifiers cleaner to add.
       override def armorClass(a: Character): Int = 10 + acDexBonus(a)
       override def attack[B: Combatant](
           c: Character,

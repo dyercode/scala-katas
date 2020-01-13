@@ -27,6 +27,6 @@ object Fighter extends PlayerClass {
 object Rogue extends PlayerClass {
   override def critMultiplier: Int = 3
   override def targetAcModifier[A: Combatant](ch: A): Int = {
-    ch.armorClass - ch.acDexBonus
+    ch.armorClass - Math.max(0, ch.acDexBonus)
   }
 }
