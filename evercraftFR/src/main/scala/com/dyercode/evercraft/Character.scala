@@ -10,6 +10,7 @@ case class Character(
     intelligence: Ability = Ability(),
     wisdom: Ability = Ability(),
     charisma: Ability = Ability(),
+    playerClass: PlayerClass = DefaultClass,
     damage: Int = 0,
     xp: Int = 0
 ) {
@@ -29,7 +30,10 @@ case object Hit extends AttackResult
 case object Miss extends AttackResult
 
 object Character {
-  def changeAlignment(character: Character, alignment: Alignment): Character = {
+  def changeAlignment(
+      character: Character,
+      alignment: Alignment
+  ): Character = {
     character.copy(alignment = alignment)
   }
 
@@ -52,7 +56,10 @@ object Character {
         Math.max(1, rawDamage * critMultiplier)
       }
       override def hitPoints(a: Character): Int = {
-        val cap = Math.max(1, 5 + a.constitution.modifier) * a.level
+        val cap = Math.max(
+          1,
+          a.playerClass.baseHitPoints + a.constitution.modifier
+        ) * a.level
         cap - a.damage
       }
 
