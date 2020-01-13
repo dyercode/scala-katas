@@ -41,7 +41,8 @@ object Character {
     new Combatant[Character] {
       // TODO - consider returning and object with a breakdown of bonuses, rather than an Int
       // This will make doing things like ignoring specific modifiers cleaner to add.
-      override def armorClass(a: Character): Int = 10 + acDexBonus(a)
+      override def armorClass(a: Character): Int =
+        10 + acDexBonus(a) + a.playerClass.acMod(a)
       override def attack[B: Combatant](
           c: Character,
           roll: Int,
@@ -55,10 +56,11 @@ object Character {
         }
 
       override def calculateDamage(c: Character, ar: AttackResult): Int = {
-        val rawDamage = 1 + c.strength.modifier
+        val rawDamage = c.playerClass.baseDamage + c.strength.modifier
         val critMultiplier = if (ar == Crit) c.playerClass.critMultiplier else 1
         Math.max(1, rawDamage * critMultiplier)
       }
+
       override def hitPoints(a: Character): Int = {
         val cap = Math.max(
           1,
