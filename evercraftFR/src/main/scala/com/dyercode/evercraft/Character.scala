@@ -39,15 +39,18 @@ object Character {
 
   implicit val characterCombatant: Combatant[Character] =
     new Combatant[Character] {
-      override def armorClass(a: Character): Int = 10 + a.dexterity.modifier
+      // TODO - consider returning and object with a breakdown of bonuses, rather than an Int
+      override def armorClass(a: Character): Int = 10 + acDexBonus(a)
       override def attack[B: Combatant](
           c: Character,
           roll: Int,
-          d: B
+          defender: B
       ): AttackResult =
         if (roll == 20) Crit
         else {
-          if (roll + attackBonus(c) >= d.armorClass) Hit else Miss
+          if (roll + attackBonus(c) >= c.playerClass.targetAcModifier(defender)) {
+            Hit
+          } else Miss
         }
 
       override def calculateDamage(c: Character, ar: AttackResult): Int = {
@@ -71,5 +74,7 @@ object Character {
       override def attackBonus(a: Character): Int = {
         a.strength.modifier + a.playerClass.attackModifier(a)
       }
+
+      override def acDexBonus(a: Character): Int = a.dexterity.modifier
     }
 }

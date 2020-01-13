@@ -8,6 +8,7 @@ trait Combatant[A] {
   def takeDamage(a: A, ar: Int): A
   def dead(a: A): Boolean
   def attackBonus(a: A): Int
+  def acDexBonus(a: A): Int
 }
 
 object Combatant {
@@ -20,5 +21,6 @@ object Combatant {
       c.attack(a, roll, defender)
     def dead: Boolean = c.dead(a)
     def attackBonus: Int = c.attackBonus(a)
+    def acDexBonus: Int = c.acDexBonus(a)
   }
 }

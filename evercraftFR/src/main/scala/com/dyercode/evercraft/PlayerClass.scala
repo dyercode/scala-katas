@@ -1,4 +1,5 @@
 package com.dyercode.evercraft
+import Combatant._
 
 trait PlayerClass {
   /*
@@ -13,6 +14,7 @@ trait PlayerClass {
   def baseHitPoints: Int = 5
   def critMultiplier: Int = 2
   def attackModifier(ch: Character): Int = ch.level / 2
+  def targetAcModifier[A: Combatant](ch: A): Int = ch.armorClass
 }
 
 object DefaultClass extends PlayerClass
@@ -24,4 +26,7 @@ object Fighter extends PlayerClass {
 
 object Rogue extends PlayerClass {
   override def critMultiplier: Int = 3
+  override def targetAcModifier[A: Combatant](ch: A): Int = {
+    ch.armorClass - ch.acDexBonus
+  }
 }
