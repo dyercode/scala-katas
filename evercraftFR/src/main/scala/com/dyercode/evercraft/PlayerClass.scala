@@ -10,18 +10,18 @@ trait PlayerClass {
     alignment limitations
    */
 
-  def baseHitPoints: Int
-  def attackModifier(character: Character): Int
+  def baseHitPoints: Int = 5
+  def critMultiplier: Int = 2
+  def attackModifier(ch: Character): Int = ch.level / 2
 }
 
-object DefaultClass extends PlayerClass {
-  override def baseHitPoints: Int = 5
-
-  override def attackModifier(ch: Character): Int = ch.level / 2
-}
+object DefaultClass extends PlayerClass
 
 object Fighter extends PlayerClass {
   override def baseHitPoints: Int = 10
-
   override def attackModifier(ch: Character): Int = ch.level
+}
+
+object Rogue extends PlayerClass {
+  override def critMultiplier: Int = 3
 }

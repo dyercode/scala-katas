@@ -52,7 +52,7 @@ object Character {
 
       override def calculateDamage(c: Character, ar: AttackResult): Int = {
         val rawDamage = 1 + c.strength.modifier
-        val critMultiplier = if (ar == Crit) 2 else 1
+        val critMultiplier = if (ar == Crit) c.playerClass.critMultiplier else 1
         Math.max(1, rawDamage * critMultiplier)
       }
       override def hitPoints(a: Character): Int = {
