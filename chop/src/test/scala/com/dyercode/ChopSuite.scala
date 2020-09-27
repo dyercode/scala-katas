@@ -1,10 +1,11 @@
 package com.dyercode
 
-import org.scalatest.{FunSuite, MustMatchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.must
 
 import scala.annotation.tailrec
 
-class ChopSuite extends FunSuite with MustMatchers {
+class ChopSuite extends AnyFunSuite with must.Matchers {
 
   // Write a binary chop method that takes an integer search target and a sorted array of integers.
   // It should return the integer index of the target in the array, or -1 if the target is not in the array.
