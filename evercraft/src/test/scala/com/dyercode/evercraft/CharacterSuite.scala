@@ -3,6 +3,7 @@ package com.dyercode.evercraft
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
 import org.scalatest.{BeforeAndAfter, OneInstancePerTest}
+import Alignment._
 
 class CharacterSuite
     extends AnyFunSuite
@@ -128,11 +129,14 @@ class CharacterSuite
     character.strength = Ability(18)
     val initialVictimHitPoints = victim.hitPoints
     character.attack(victim, meetACRoll)
-    val expectedResultingHitPoints = initialVictimHitPoints - (1 + character.strength.modifier)
+    val expectedResultingHitPoints =
+      initialVictimHitPoints - (1 + character.strength.modifier)
     victim.hitPoints must be(expectedResultingHitPoints)
   }
 
-  test("critical hits must instead add double the strength modifier to damage") {
+  test(
+    "critical hits must instead add double the strength modifier to damage"
+  ) {
     val newChar = character.strength = Ability(18)
     val initialVictimHitPoints = victim.hitPoints
     val expectedResultingHitPoints = initialVictimHitPoints - 10
@@ -201,5 +205,7 @@ class CharacterSuite
     )
   }
 
-  test("for each level 1 is added to attack roll for every even level achieved") {}
+  test(
+    "for each level 1 is added to attack roll for every even level achieved"
+  ) {}
 }

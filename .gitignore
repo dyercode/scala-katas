@@ -6,13 +6,11 @@ bin/*
 .DS_Store
 .DS_Store?
 .gradle/
-*.iml
 out/
 .project
 .settings
 .classpath
 .idea
-.gradle/
 target
 /*.groovy
 atlassian-ide-plugin.xml

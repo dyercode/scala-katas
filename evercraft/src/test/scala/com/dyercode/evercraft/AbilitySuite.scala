@@ -61,8 +61,8 @@ class AbilitySuite
   }
 
   test("modifier must give the proper value for a given ability score") {
-    abilityModifierChart foreach {
-      case (score: Int, value: Int) => assert(Ability(score).modifier === value)
+    abilityModifierChart foreach { case (score: Int, value: Int) =>
+      assert(Ability(score).modifier === value)
     }
   }
 }
