@@ -15,6 +15,7 @@ target
 /*.groovy
 atlassian-ide-plugin.xml
 .attach_pid*
+null
 .bsp
 .metals
 .vscode

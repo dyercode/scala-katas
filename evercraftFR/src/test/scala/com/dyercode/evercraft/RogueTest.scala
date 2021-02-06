@@ -21,9 +21,9 @@ class RogueTest extends AnyFunSuite with must.Matchers {
   }
 
   test("honors targets dex penalty when attacking") {
-    val stabby =
+    val stabby: Character =
       Character(name = "Stabby", alignment = Neutral, playerClass = Rogue)
-    val stabee =
+    val stabee: Character =
       Character(name = "stabee", alignment = Neutral, dexterity = Ability(1))
 
     stabby.attack(5, stabee) mustBe Hit
@@ -31,7 +31,7 @@ class RogueTest extends AnyFunSuite with must.Matchers {
 
   test("adds dex mod to attack instead of strenth") {
     val dex = Ability(14)
-    val stabby =
+    val stabby: Character =
       Character(
         name = "Stabby",
         alignment = Neutral,
