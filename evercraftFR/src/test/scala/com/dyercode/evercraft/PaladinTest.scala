@@ -1,6 +1,7 @@
 package com.dyercode.evercraft
 
 import com.dyercode.evercraft.Character._
+import com.dyercode.evercraft.Alignment._
 import com.dyercode.evercraft.Combatant._
 import org.scalatest.matchers.must
 import org.scalatest.wordspec.AnyWordSpec
@@ -24,10 +25,10 @@ class PaladinTest extends AnyWordSpec with must.Matchers {
 
       "must be good" in {
         an[IllegalArgumentException] must be thrownBy {
-          Character(name = "NeutPally", _alignment = Neutral)
+          Character(name = "NeutPally", _alignment = Neutral, playerClass = Paladin)
         }
         an[IllegalArgumentException] must be thrownBy {
-          Character(name = "BadPally", _alignment = Evil)
+          Character(name = "BadPally", _alignment = Evil, playerClass = Paladin)
         }
       }
     }

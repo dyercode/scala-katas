@@ -23,7 +23,6 @@ lazy val evercraftF = (
 lazy val evercraftFr = (
   KataProject("evercraftFR")
     settings (libraryDependencies ++= evercraftFrDependencies)
-    settings (scalacOptions += "-Ymacro-annotations")
 )
 
 lazy val fibonacci = (

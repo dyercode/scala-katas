@@ -1,7 +1,7 @@
 package com.dyercode.evercraft
 
 import com.dyercode.evercraft.Combatant._
-import com.dyercode.evercraft.Aligned._
+import com.dyercode.evercraft.Alignment._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
 
@@ -23,9 +23,9 @@ class RogueTest extends AnyFunSuite with must.Matchers {
 
   test("honors targets dex penalty when attacking") {
     val stabby: Character =
-      Character(name = "Stabby", alignment = Neutral, playerClass = Rogue)
+      Character(name = "Stabby", _alignment = Neutral, playerClass = Rogue)
     val stabee: Character =
-      Character(name = "stabee", alignment = Neutral, dexterity = Ability(1))
+      Character(name = "stabee", _alignment = Neutral, dexterity = Ability(1))
 
     stabby.attack(5, stabee) mustBe Hit
   }

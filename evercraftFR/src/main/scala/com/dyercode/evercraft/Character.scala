@@ -1,5 +1,7 @@
 package com.dyercode.evercraft
-import com.dyercode.evercraft.PlayerClass.MoralFighter
+//import com.dyercode.evercraft.PlayerClass.MoralFighter
+import com.dyercode.evercraft.Alignment
+import com.dyercode.evercraft.Aligned
 
 case class Character(
     name: String,
@@ -14,6 +16,7 @@ case class Character(
     damage: Int = 0,
     xp: Int = 0
 ) {
+  require(playerClass.checkRequirements(this))
   // todo - gut tells me to make this a separate thing, too. but starting with simplest way. mostly because I don't know what to call that other thing.
   def gainXp(xp: Int): Character = {
     this.copy(xp = this.xp + xp)
@@ -23,6 +26,10 @@ case class Character(
     1 + (xp / 1000)
   }
 }
+
+given Aligned[Character] with 
+  extension (a: Character) def alignment: Alignment = a._alignment
+
 
 sealed trait AttackResult
 case object Crit extends AttackResult
@@ -36,9 +43,9 @@ object Character {
   ): Character = {
     character.copy(_alignment = alignment)
   }
-  implicit val characterAligned: Aligned[Character] = new Aligned[Character] {
-    override def alignment(a: Character): Alignment = a._alignment
-  }
+//  implicit val characterAligned: Aligned[Character] = new Aligned[Character] {
+//    override def alignment(a: Character): Alignment = a._alignment
+//  }
 
   implicit val characterCombatant: Combatant[Character] =
     new Combatant[Character] {

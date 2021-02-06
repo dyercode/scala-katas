@@ -1,17 +1,7 @@
 package com.dyercode.evercraft
 
-sealed trait Alignment
+enum Alignment:
+  case Good, Neutral, Evil
 
-case object Good extends Alignment
-case object Neutral extends Alignment
-case object Evil extends Alignment
-
-trait Aligned[A] {
-  def alignment(a: A): Alignment
-}
-
-object Aligned {
-  implicit class AlignedOps[A](a: A)(implicit al: Aligned[A]) {
-    def alignment: Alignment = al.alignment(a)
-  }
-}
+trait Aligned[A]:
+  extension (a: A) def alignment: Alignment

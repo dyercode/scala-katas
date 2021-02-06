@@ -1,6 +1,7 @@
 package com.dyercode.evercraft
 
 import com.dyercode.evercraft.Combatant._
+import com.dyercode.evercraft.Alignment._
 import com.dyercode.evercraft.Character._
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.must
