@@ -1,6 +1,8 @@
 package com.dyercode.evercraft
 
 import com.dyercode.evercraft.Character._
+import com.dyercode.evercraft.Aligned
+import com.dyercode.evercraft.Alignment._
 import com.dyercode.evercraft.Combatant._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
@@ -12,13 +14,13 @@ class CharacterSuite
     with TableDrivenPropertyChecks {
 
   test("has a name and alignment") {
-    val myDude = Character(name = "MyDude", alignment = Neutral)
+    val myDude = Character(name = "MyDude", _alignment = Neutral)
     myDude.name mustBe "MyDude"
     myDude.alignment mustBe Neutral
   }
 
   test("can change to any of the alignments") {
-    val billy = Character(name = "Billy", alignment = Good)
+    val billy = Character(name = "Billy", _alignment = Good)
     val badBilly = changeAlignment(billy, Evil)
     val madBilly = changeAlignment(badBilly, Neutral)
 
@@ -28,16 +30,16 @@ class CharacterSuite
   }
 
   test("as a combatant I want to have armor class") {
-    Character(name = "billy", alignment = Good).armorClass mustBe 10
+    Character(name = "billy", _alignment = Good).armorClass mustBe 10
   }
 
   test("as a combatant I want to have hitPoints") {
-    Character(name = "billy", alignment = Good).hitPoints mustBe 5
+    Character(name = "billy", _alignment = Good).hitPoints mustBe 5
   }
 
   test("roll must meet or beat opponent's armor class to hit") {
-    val billy = Character(name = "Billy", alignment = Good)
-    val baddy = Character(name = "Baddy", alignment = Evil)
+    val billy = Character(name = "Billy", _alignment = Good)
+    val baddy = Character(name = "Baddy", _alignment = Evil)
 
     billy.attack(11, baddy) mustBe Hit
     billy.attack(10, baddy) mustBe Hit
@@ -47,7 +49,7 @@ class CharacterSuite
   test(
     "if attack is successful, other character takes 1 point of damage when hit"
   ) {
-    val baddy = Character(name = "Baddy", alignment = Good)
+    val baddy = Character(name = "Baddy", _alignment = Good)
     val ar = baddy.attack(19, baddy)
     val damage = baddy.calculateDamage(ar)
     val hitBaddy = baddy.takeDamage(damage)
@@ -57,8 +59,8 @@ class CharacterSuite
   test(
     "if a roll is a natural 20 then a critical hit is dealt and damage is doubled"
   ) {
-    val billy = Character(name = "Billy", alignment = Good)
-    val baddy = Character(name = "Baddy", alignment = Good)
+    val billy = Character(name = "Billy", _alignment = Good)
+    val baddy = Character(name = "Baddy", _alignment = Good)
     val damage = billy.calculateDamage(Crit)
     val hitBaddy = baddy.takeDamage(damage)
     hitBaddy.hitPoints mustBe 3
@@ -84,8 +86,8 @@ class CharacterSuite
 
   test("adds strength modifier to attack roll") {
     val billy =
-      Character(name = "Billy", alignment = Good, strength = Ability(12))
-    val baddy = Character(name = "Baddy", alignment = Evil)
+      Character(name = "Billy", _alignment = Good, strength = Ability(12))
+    val baddy = Character(name = "Baddy", _alignment = Evil)
 
     billy.attack(10, baddy) mustBe Hit
     billy.attack(9, baddy) mustBe Hit
@@ -94,38 +96,38 @@ class CharacterSuite
 
   test("adds strength modifier to damage") {
     val billy =
-      Character(name = "Billy", alignment = Good, strength = Ability(12))
+      Character(name = "Billy", _alignment = Good, strength = Ability(12))
     billy.calculateDamage(Hit) mustBe 2
   }
 
   test("strength modifier to damage is doubled on a crit") {
     val billy =
-      Character(name = "Billy", alignment = Good, strength = Ability(12))
+      Character(name = "Billy", _alignment = Good, strength = Ability(12))
     billy.calculateDamage(Crit) mustBe 4
   }
 
   test("minimum damage is always 1") {
     val wimpy =
-      Character(name = "Wimpy", alignment = Good, strength = Ability(1))
+      Character(name = "Wimpy", _alignment = Good, strength = Ability(1))
     wimpy.calculateDamage(Hit) mustBe 1
     wimpy.calculateDamage(Crit) mustBe 1
   }
 
   test("dexterity modifier is added to armor class") {
     val dodgy =
-      Character(name = "Dodgy", alignment = Good, dexterity = Ability(12))
+      Character(name = "Dodgy", _alignment = Good, dexterity = Ability(12))
     dodgy.armorClass mustBe 11
   }
 
   test("constitution modifier is added to hitpoints") {
     val tuffboi =
-      Character(name = "Tuffboi", alignment = Good, constitution = Ability(12))
+      Character(name = "Tuffboi", _alignment = Good, constitution = Ability(12))
     tuffboi.hitPoints mustBe 6
   }
 
   test("hp min is always 1 even with low con") {
     val frailboi =
-      Character(name = "Frailboi", alignment = Good, constitution = Ability(1))
+      Character(name = "Frailboi", _alignment = Good, constitution = Ability(1))
     frailboi.hitPoints mustBe 1
   }
 
@@ -222,7 +224,7 @@ class CharacterSuite
     forAll(hpLevel) { (hp: Int, xp: Int) =>
       Character(
         name = "Healthy",
-        alignment = Neutral,
+        _alignment = Neutral,
         xp = xp,
         constitution = Ability(14)
       ).hitPoints mustBe hp
@@ -255,9 +257,9 @@ class CharacterSuite
 
     forAll(attackLvl) { (attack: Int, xp: Int) =>
       val billy =
-        Character(name = "Billy", alignment = Good, xp = xp)
+        Character(name = "Billy", _alignment = Good, xp = xp)
 
-      billy.attackBonus mustBe attack
+      billy.attackBonus(billy) mustBe attack
     }
   }
 

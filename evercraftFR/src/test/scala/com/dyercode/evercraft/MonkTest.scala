@@ -1,8 +1,10 @@
 package com.dyercode.evercraft
 
+import com.dyercode.evercraft.Combatant._
+import com.dyercode.evercraft.Alignment._
+import com.dyercode.evercraft.Character._
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.must
-import Combatant._
 import org.scalatest.prop.TableDrivenPropertyChecks
 
 class MonkTest
@@ -10,8 +12,9 @@ class MonkTest
     with must.Matchers
     with TableDrivenPropertyChecks {
   describe("A monk") {
-    def monk =
-      Character(name = "Monky", alignment = Neutral, playerClass = Monk)
+    val monk: Character =
+      Character(name = "Monky", _alignment = Neutral, playerClass = Monk)
+
     it("has 6 hp per level") {
       monk.hitPoints mustBe 6
     }
@@ -58,10 +61,9 @@ class MonkTest
 
       forAll(monkAttackBonus) { (level: Int, xp: Int, bonus: Int) =>
         it(s"is ${bonus} at level ${level}") {
-          monk.copy(xp = xp).attackBonus mustBe bonus
+          monk.copy(xp = xp).attackBonus(monk) mustBe bonus
         }
       }
     }
-
   }
 }
