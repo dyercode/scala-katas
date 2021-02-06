@@ -38,7 +38,7 @@ class TriangleSpec extends AnyWordSpec with must.Matchers {
   }
 
   sealed trait Triangle
-  final case object Equilateral extends Triangle
-  final case object Isosceles extends Triangle
-  final case object Right extends Triangle
+  case object Equilateral extends Triangle
+  case object Isosceles extends Triangle
+  case object Right extends Triangle
 }

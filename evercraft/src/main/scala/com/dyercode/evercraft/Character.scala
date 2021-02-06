@@ -71,10 +71,10 @@ case class Character(
   def attack(target: Character, roll: Int): Unit = {
     isAHit(roll, target) match {
       case Hit =>
-        target damage normalDamage
+        target.damage(normalDamage)
         experiencePoints += experiencePerAttack
       case Critical =>
-        target damage criticalDamage
+        target.damage(criticalDamage)
         experiencePoints += experiencePerAttack
       case _ =>
     }
@@ -82,12 +82,12 @@ case class Character(
 
   def damage(points: Int): Unit = _hitPoints -= points
 
-  private def normalDamage(): Int = {
+  private def normalDamage: Int = {
     val initialCalc = baseDamage + strength.modifier
     if (initialCalc >= 1) initialCalc else minimumAttackDamage
   }
 
-  private def criticalDamage() = {
+  private def criticalDamage = {
     val initialCalc = baseCriticalDamage + (strength.modifier * 2)
     if (initialCalc >= 1) initialCalc else minimumAttackDamage
   }
