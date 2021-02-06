@@ -1,21 +1,22 @@
 package com.dyercode.evercraft
 
+import com.dyercode.evercraft.Combatant._
+import com.dyercode.evercraft.Aligned._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
-import Combatant._
 
 class RogueTest extends AnyFunSuite with must.Matchers {
 
   test("rogue crits do *3 damage") {
-    Character(name = "Stabby", alignment = Neutral, playerClass = Rogue)
+    Character(name = "Stabby", _alignment = Neutral, playerClass = Rogue)
       .calculateDamage(ar = Crit) mustBe 3
   }
 
   test("ignores target's dex bonus when attacking") {
     val stabby =
-      Character(name = "Stabby", alignment = Neutral, playerClass = Rogue)
+      Character(name = "Stabby", _alignment = Neutral, playerClass = Rogue)
     val stabee =
-      Character(name = "stabee", alignment = Neutral, dexterity = Ability(20))
+      Character(name = "stabee", _alignment = Neutral, dexterity = Ability(20))
 
     stabby.attack(10, stabee) mustBe Hit
   }
@@ -34,12 +35,12 @@ class RogueTest extends AnyFunSuite with must.Matchers {
     val stabby: Character =
       Character(
         name = "Stabby",
-        alignment = Neutral,
+        _alignment = Neutral,
         playerClass = Rogue,
         dexterity = dex
       )
 
-    stabby.attackBonus mustBe dex.modifier
+    stabby.attackBonus(Character("dunno", _alignment = Neutral)) mustBe dex.modifier
 
   }
 }

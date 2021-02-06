@@ -1,9 +1,9 @@
 package com.dyercode.evercraft
-import com.dyercode.evercraft.Combatant._
+import com.dyercode.evercraft.PlayerClass.MoralFighter
 
 case class Character(
     name: String,
-    alignment: Alignment,
+    _alignment: Alignment,
     strength: Ability = Ability(),
     dexterity: Ability = Ability(),
     constitution: Ability = Ability(),
@@ -34,7 +34,10 @@ object Character {
       character: Character,
       alignment: Alignment
   ): Character = {
-    character.copy(alignment = alignment)
+    character.copy(_alignment = alignment)
+  }
+  implicit val characterAligned: Aligned[Character] = new Aligned[Character] {
+    override def alignment(a: Character): Alignment = a._alignment
   }
 
   implicit val characterCombatant: Combatant[Character] =
@@ -43,14 +46,16 @@ object Character {
       // This will make doing things like ignoring specific modifiers cleaner to add.
       override def armorClass(a: Character): Int =
         10 + acDexBonus(a) + a.playerClass.acMod(a)
-      override def attack[B: Combatant](
+      override def attack[B](
           c: Character,
           roll: Int,
           defender: B
-      ): AttackResult =
+      )(implicit cb: Combatant[B], al: Aligned[B]): AttackResult =
         if (roll == 20) Crit
         else {
-          if (roll + attackBonus(c) >= c.playerClass.targetAcModifier(defender)) {
+          if (roll + attackBonus(c, defender) >= c.playerClass.targetAcModifier(
+                defender
+              )) {
             Hit
           } else Miss
         }
@@ -74,8 +79,13 @@ object Character {
 
       override def dead(a: Character): Boolean = hitPoints(a) <= 0
 
-      override def attackBonus(a: Character): Int = {
-        a.playerClass.attackStatMod(a) + a.playerClass.attackModifier(a)
+      override def attackBonus[B](
+          character: Character,
+          defender: B
+      )(implicit cb: Combatant[B], al: Aligned[B]): Int = {
+        character.playerClass.attackStatMod(character) +
+          character.playerClass.baseAttack(character) +
+          character.playerClass.attackModifier(defender)
       }
 
       override def acDexBonus(a: Character): Int = a.dexterity.modifier
