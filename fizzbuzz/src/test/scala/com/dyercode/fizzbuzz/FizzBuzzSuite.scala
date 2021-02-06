@@ -31,4 +31,12 @@ class FizzBuzzSuite extends AnyFunSuite with must.Matchers {
     val buzzedList = fizzBuzz(OneToOneHundredList)
     buzzes foreach (x => buzzedList(x - 1) must include("Buzz"))
   }
+
+  test("numbers with 3 and 5 must be fizzbuzz") {
+    fizzBuzz(35 :: Nil) must be(List("FizzBuzz"))
+  }
+
+  test("numbers which are multiples 3 and 5 must be fizzbuzz") {
+    fizzBuzz(60 :: Nil) must be(List("FizzBuzz"))
+  }
 }
