@@ -10,6 +10,8 @@ class TriangleSpec extends AnyWordSpec with must.Matchers {
   //  Can only be joined into a triangle that is not one of the preceding cases. (example: 2, 3, 4)
   //  Cannot be made into a triangle. (example: 2, 3, 5) [Warning: might look isosceles at first glance.]
 
+  import Triangle._
+
   "A triangle" can {
     "be joined into an equilateral triangle" in {
       identify((3, 3, 3)) mustBe Equilateral
@@ -37,8 +39,7 @@ class TriangleSpec extends AnyWordSpec with must.Matchers {
     }
   }
 
-  sealed trait Triangle
-  case object Equilateral extends Triangle
-  case object Isosceles extends Triangle
-  case object Right extends Triangle
 }
+
+enum Triangle:
+  case Equilateral, Isosceles, Right

@@ -2,7 +2,7 @@ package com.dyercode.evercraft
 
 import com.dyercode.evercraft.Character._
 import com.dyercode.evercraft.Alignment._
-import com.dyercode.evercraft.Combatant._
+import com.dyercode.evercraft.AttackResult._
 import org.scalatest.matchers.must
 import org.scalatest.wordspec.AnyWordSpec
 
