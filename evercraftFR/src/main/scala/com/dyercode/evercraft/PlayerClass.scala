@@ -1,6 +1,6 @@
 package com.dyercode.evercraft
 
-import com.dyercode.evercraft.Combatant._
+import com.dyercode.evercraft.Combatant
 
 trait PlayerClass {
   /*

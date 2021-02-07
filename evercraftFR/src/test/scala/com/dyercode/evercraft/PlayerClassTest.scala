@@ -2,7 +2,6 @@ package com.dyercode.evercraft
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
-import com.dyercode.evercraft.Combatant._
 import com.dyercode.evercraft.Alignment._
 import Character._
 
