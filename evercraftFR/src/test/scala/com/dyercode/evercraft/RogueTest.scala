@@ -8,8 +8,8 @@ import org.scalatest.matchers.must
 class RogueTest extends AnyFunSuite with must.Matchers {
 
   test("rogue crits do *3 damage") {
-    Character(name = "Stabby", _alignment = Neutral, playerClass = Rogue)
-      .calculateDamage(ar = Crit) mustBe 3
+    val stabby = Character(name = "Stabby", _alignment = Neutral, playerClass = Rogue)
+    stabby.calculateDamage(ar = Crit, defender = stabby) mustBe 3
   }
 
   test("ignores target's dex bonus when attacking") {

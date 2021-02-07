@@ -51,7 +51,7 @@ class CharacterSuite
   ) {
     val baddy = Character(name = "Baddy", _alignment = Good)
     val ar = baddy.attack(19, baddy)
-    val damage = baddy.calculateDamage(ar)
+    val damage = baddy.calculateDamage(ar, baddy)
     val hitBaddy = baddy.takeDamage(damage)
     hitBaddy.hitPoints mustBe 4
   }
@@ -61,7 +61,7 @@ class CharacterSuite
   ) {
     val billy = Character(name = "Billy", _alignment = Good)
     val baddy = Character(name = "Baddy", _alignment = Good)
-    val damage = billy.calculateDamage(Crit)
+    val damage = billy.calculateDamage(Crit, baddy)
     val hitBaddy = baddy.takeDamage(damage)
     hitBaddy.hitPoints mustBe 3
   }
@@ -97,20 +97,20 @@ class CharacterSuite
   test("adds strength modifier to damage") {
     val billy =
       Character(name = "Billy", _alignment = Good, strength = Ability(12))
-    billy.calculateDamage(Hit) mustBe 2
+    billy.calculateDamage(Hit, billy) mustBe 2
   }
 
   test("strength modifier to damage is doubled on a crit") {
     val billy =
       Character(name = "Billy", _alignment = Good, strength = Ability(12))
-    billy.calculateDamage(Crit) mustBe 4
+    billy.calculateDamage(Crit, billy) mustBe 4
   }
 
   test("minimum damage is always 1") {
     val wimpy =
       Character(name = "Wimpy", _alignment = Good, strength = Ability(1))
-    wimpy.calculateDamage(Hit) mustBe 1
-    wimpy.calculateDamage(Crit) mustBe 1
+    wimpy.calculateDamage(Hit, wimpy) mustBe 1
+    wimpy.calculateDamage(Crit, wimpy) mustBe 1
   }
 
   test("dexterity modifier is added to armor class") {
@@ -262,5 +262,4 @@ class CharacterSuite
       billy.attackBonus(billy) mustBe attack
     }
   }
-
 }

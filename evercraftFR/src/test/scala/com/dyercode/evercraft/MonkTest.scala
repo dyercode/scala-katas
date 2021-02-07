@@ -19,7 +19,7 @@ class MonkTest
       monk.hitPoints mustBe 6
     }
     it("does 3 points of damage instead of 1 when successfully attacking") {
-      monk.calculateDamage(ar = Hit) mustBe 3
+      monk.calculateDamage(ar = Hit, defender = monk) mustBe 3
     }
 
     it("adds Wisdom to Armor Class in addition to Dexterity") {

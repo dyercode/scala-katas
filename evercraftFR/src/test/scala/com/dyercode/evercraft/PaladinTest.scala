@@ -11,6 +11,7 @@ class PaladinTest extends AnyWordSpec with must.Matchers {
   "A Paladin" when {
     val pally =
       Character(name = "Pally", _alignment = Good, playerClass = Paladin)
+
     "fighting an evil character" must {
       val baddy: Character =
         Character(name = "Baddy", _alignment = Evil)
@@ -20,16 +21,20 @@ class PaladinTest extends AnyWordSpec with must.Matchers {
       }
 
       "add 2 to damage" in {
-        pally.calculateDamage(Hit)
+        pally.calculateDamage(Hit, baddy)
       }
 
-      "must be good" in {
-        an[IllegalArgumentException] must be thrownBy {
-          Character(name = "NeutPally", _alignment = Neutral, playerClass = Paladin)
-        }
-        an[IllegalArgumentException] must be thrownBy {
-          Character(name = "BadPally", _alignment = Evil, playerClass = Paladin)
-        }
+      "do triple damage on a crit" in {
+        pally.calculateDamage(Crit, baddy) mustBe (pally.calculateDamage(Crit, baddy.copy(_alignment = Neutral)) * 1.5)
+      }
+    }
+
+    "must be good" in {
+      an[IllegalArgumentException] must be thrownBy {
+        Character(name = "NeutPally", _alignment = Neutral, playerClass = Paladin)
+      }
+      an[IllegalArgumentException] must be thrownBy {
+        Character(name = "BadPally", _alignment = Evil, playerClass = Paladin)
       }
     }
   }

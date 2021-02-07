@@ -31,14 +31,8 @@ case class Character(
 given Aligned[Character] with
   extension(a: Character) def alignment: Alignment = a._alignment
 
-enum AttackResult:
-  case Crit, Hit, Miss
-
 object Character {
-  def changeAlignment(
-                       character: Character,
-                       alignment: Alignment
-                     ): Character = {
+  def changeAlignment(character: Character, alignment: Alignment): Character = {
     character.copy(_alignment = alignment)
   }
 }
@@ -59,18 +53,18 @@ given Combatant[Character] with {
       } else AttackResult.Miss
     }
 
-  extension (c: Character) def calculateDamage(ar: AttackResult): Int = {
+  extension [D: Aligned] (c: Character) def calculateDamage(ar: AttackResult, defender: D): Int = {
     val rawDamage = c.playerClass.baseDamage + c.strength.modifier
-    val critMultiplier = if (ar == AttackResult.Crit) c.playerClass.critMultiplier else 1
+    val critMultiplier = if (ar == AttackResult.Crit) c.playerClass.critMultiplier(defender) else 1
     Math.max(1, rawDamage * critMultiplier)
   }
 
-  extension (a: Character) def hitPoints: Int = {
+  extension (c: Character) def hitPoints: Int = {
     val cap = Math.max(
       1,
-      a.playerClass.baseHitPoints + a.constitution.modifier
-    ) * a.level
-    cap - a.damage
+      c.playerClass.baseHitPoints + c.constitution.modifier
+    ) * c.level
+    cap - c.damage
   }
 
   extension (c: Character) def takeDamage(dmg: Int): Character =
