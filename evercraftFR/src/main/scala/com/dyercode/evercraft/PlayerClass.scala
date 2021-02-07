@@ -1,6 +1,7 @@
 package com.dyercode.evercraft
 
 import com.dyercode.evercraft.Combatant
+import com.dyercode.evercraft.Alignment._
 
 trait PlayerClass {
   /*
@@ -16,7 +17,7 @@ trait PlayerClass {
 
   def baseHitPoints: Int = 5
 
-  def critMultiplier: Int = 2
+  def critMultiplier[A: Aligned](defender: A): Int = 2
 
   def baseAttack(ch: Character): Int = ch.level / 2
 
@@ -31,10 +32,6 @@ trait PlayerClass {
   def checkRequirements[A: Aligned](a: A): Boolean = true
 }
 
-object PlayerClass {
-  type MoralFighter[A] = Combatant[A] with Aligned[A]
-}
-
 object DefaultClass extends PlayerClass
 
 object Fighter extends PlayerClass {
@@ -44,7 +41,7 @@ object Fighter extends PlayerClass {
 }
 
 object Rogue extends PlayerClass {
-  override def critMultiplier: Int = 3
+  override def critMultiplier[A: Aligned](a: A): Int = 3
 
   override def targetAcModifier[A: Combatant](ch: A): Int = {
     ch.armorClass - Math.max(0, ch.acDexBonus)
@@ -65,6 +62,13 @@ object Monk extends PlayerClass {
 }
 
 object Paladin extends PlayerClass {
+  override def critMultiplier[A: Aligned](d: A): Int = d.alignment match {
+    case Evil => 3
+    case _ => {
+      println(d); 2
+    }
+  }
+  
   override def checkRequirements[A: Aligned](a: A): Boolean = a.alignment match {
     case Alignment.Good => true
     case x => {
@@ -73,10 +77,8 @@ object Paladin extends PlayerClass {
     }
   }
 
-  override def attackModifier[A: Combatant : Aligned](d: A): Int = {
-    d.alignment match {
-      case Alignment.Evil => 2
-      case _ => 0
-    }
+  override def attackModifier[A: Combatant : Aligned](d: A): Int = d.alignment match {
+    case Alignment.Evil => 2
+    case _ => 0
   }
 }
