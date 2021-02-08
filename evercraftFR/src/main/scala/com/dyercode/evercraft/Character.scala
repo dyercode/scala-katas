@@ -8,12 +8,12 @@ import com.dyercode.evercraft.Raced
 case class Character(
                       name: String,
                       _alignment: Alignment,
-                      strength: Ability = Ability(),
-                      dexterity: Ability = Ability(),
-                      constitution: Ability = Ability(),
-                      intelligence: Ability = Ability(),
-                      wisdom: Ability = Ability(),
-                      charisma: Ability = Ability(),
+                      private val strength: Ability = Ability(),
+                      private val dexterity: Ability = Ability(),
+                      private val constitution: Ability = Ability(),
+                      private val intelligence: Ability = Ability(),
+                      private val wisdom: Ability = Ability(),
+                      private val charisma: Ability = Ability(),
                       playerClass: PlayerClass = DefaultClass,
                       race: Race = DefaultRace,
                       damage: Int = 0,
@@ -30,16 +30,17 @@ case class Character(
     1 + (xp / 1000)
   }
 
+  def strengthScore: Int = strength.value
+  def dexterityScore: Int = dexterity.value
+  def constitutionScore: Int = constitution.value
+  def intelligenceScore: Int = intelligence.value
+  def wisdomScore: Int = wisdom.value
+  def charismaScore: Int = charisma.value
   def strengthModifier: Int = strength.modifier + race.strengthModifier
-
   def dexterityModifier: Int = dexterity.modifier + race.dexterityModifier
-
   def constitutionModifier: Int = constitution.modifier + race.constitutionModifier
-
   def intelligenceModifier: Int = intelligence.modifier + race.intelligenceModifier
-
   def wisdomModifier: Int = wisdom.modifier + race.wisdomModifier
-
   def charismaModifier: Int = charisma.modifier + race.charismaModifier
 }
 
@@ -68,7 +69,7 @@ given Combatant[Character] with {
     val critRange = 20 - attacker.race.critRangeModifier
     if (roll >= critRange) AttackResult.Crit
     else {
-      val targetAc = defender.armorClass(attacker) + attacker.playerClass.targetAcModifier(defender) 
+      val targetAc = defender.armorClass(attacker) + attacker.playerClass.targetAcModifier(defender)
       if (roll + attacker.attackBonus(defender) >= targetAc) {
         AttackResult.Hit
       } else AttackResult.Miss

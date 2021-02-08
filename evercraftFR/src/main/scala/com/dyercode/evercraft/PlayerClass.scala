@@ -18,7 +18,7 @@ trait PlayerClass {
   def baseHitPoints: Int = 5
   def critMultiplier[A: Aligned](defender: A): Int = 2
   def baseAttack(ch: Character): Int = ch.level / 2
-  def attackStatMod(ch: Character): Int = ch.strength.modifier
+  def attackStatMod(ch: Character): Int = ch.strengthModifier
   def targetAcModifier[A: Combatant](ch: A): Int = 0
   def acMod(self: Character): Int = 0
   def attackModifier[A: Combatant : Aligned](d: A): Int = 0
@@ -40,7 +40,7 @@ object Rogue extends PlayerClass {
     -Math.max(0, ch.acDexBonus)
   }
 
-  override def attackStatMod(ch: Character): Int = ch.dexterity.modifier
+  override def attackStatMod(ch: Character): Int = ch.dexterityModifier
 }
 
 object Monk extends PlayerClass {
@@ -51,7 +51,7 @@ object Monk extends PlayerClass {
   override def baseAttack(ch: Character): Int =
     (1 to ch.level).count(l => l % 2 == 0 || l % 3 == 0)
 
-  override def acMod(self: Character): Int = Math.max(0, self.wisdom.modifier)
+  override def acMod(self: Character): Int = Math.max(0, self.wisdomModifier)
 }
 
 object Paladin extends PlayerClass {

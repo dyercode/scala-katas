@@ -77,12 +77,12 @@ class CharacterSuite
 
   test("a character has abilities") {
     val unique = Character("unique", Neutral)
-    unique.strength mustBe Ability()
-    unique.dexterity mustBe Ability()
-    unique.constitution mustBe Ability()
-    unique.wisdom mustBe Ability()
-    unique.intelligence mustBe Ability()
-    unique.charisma mustBe Ability()
+    unique.strengthScore mustBe 10
+    unique.dexterityScore mustBe 10
+    unique.constitutionScore mustBe 10
+    unique.wisdomScore mustBe 10
+    unique.intelligenceScore mustBe 10
+    unique.charismaScore mustBe 10
   }
 
   test("adds strength modifier to attack roll") {
