@@ -14,6 +14,7 @@ trait PlayerClass {
    */
 
   def baseDamage: Int = 1
+  def extraDamage[D : Aligned](defender: D): Int = 0
 
   def baseHitPoints: Int = 5
 
@@ -62,6 +63,13 @@ object Monk extends PlayerClass {
 }
 
 object Paladin extends PlayerClass {
+  override def baseAttack(ch: Character): Int = ch.level
+  
+  override def extraDamage[D : Aligned](defender: D): Int = defender.alignment match {
+    case Evil => 2
+    case _ => 0
+  }
+  
   override def critMultiplier[A: Aligned](d: A): Int = d.alignment match {
     case Evil => 3
     case _ => {

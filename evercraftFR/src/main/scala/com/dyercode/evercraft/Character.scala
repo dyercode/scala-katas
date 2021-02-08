@@ -54,7 +54,7 @@ given Combatant[Character] with {
     }
 
   extension [D: Aligned] (c: Character) def calculateDamage(ar: AttackResult, defender: D): Int = {
-    val rawDamage = c.playerClass.baseDamage + c.strength.modifier
+    val rawDamage = c.playerClass.baseDamage + c.strength.modifier + c.playerClass.extraDamage(defender)
     val critMultiplier = if (ar == AttackResult.Crit) c.playerClass.critMultiplier(defender) else 1
     Math.max(1, rawDamage * critMultiplier)
   }

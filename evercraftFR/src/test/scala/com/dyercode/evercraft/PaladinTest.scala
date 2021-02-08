@@ -21,11 +21,12 @@ class PaladinTest extends AnyWordSpec with must.Matchers {
       }
 
       "add 2 to damage" in {
-        pally.calculateDamage(Hit, baddy)
+        val nonEvilDamage = pally.calculateDamage(Hit, baddy.copy(_alignment = Neutral))
+        pally.calculateDamage(Hit, baddy) mustBe nonEvilDamage + 2
       }
 
       "do triple damage on a crit" in {
-        pally.calculateDamage(Crit, baddy) mustBe (pally.calculateDamage(Crit, baddy.copy(_alignment = Neutral)) * 1.5)
+        pally.calculateDamage(Crit, baddy) mustBe (pally.calculateDamage(Crit, pally) * 1.5 + 6)
       }
     }
 
