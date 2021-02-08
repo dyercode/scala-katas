@@ -31,9 +31,15 @@ case class Character(
   }
 
   def strengthModifier: Int = strength.modifier + race.strengthModifier
+
+  def dexterityModifier: Int = dexterity.modifier + race.dexterityModifier
+
   def constitutionModifier: Int = constitution.modifier + race.constitutionModifier
+
   def intelligenceModifier: Int = intelligence.modifier + race.intelligenceModifier
+
   def wisdomModifier: Int = wisdom.modifier + race.wisdomModifier
+
   def charismaModifier: Int = charisma.modifier + race.charismaModifier
 }
 
@@ -53,19 +59,23 @@ given Combatant[Character] with {
 
   // TODO - consider returning and object with a breakdown of bonuses, rather than an Int
   // This will make doing things like ignoring specific modifiers cleaner to add.
-  extension (a: Character) def armorClass: Int = 10 + acDexBonus(a) + a.playerClass.acMod(a) + a.race.acMod
+  extension [A: Raced](defender: Character) def armorClass(attacker: A): Int = 10
+    + acDexBonus(defender)
+    + defender.playerClass.acMod (defender)
+    + defender.race.acMod(attacker)
 
-  extension [B: Combatant : Aligned : Raced](c: Character) def attack( roll: Int, defender: B ): AttackResult =
-    if (roll == 20) AttackResult.Crit
+  extension[B: Combatant : Aligned : Raced] (attacker: Character) def attack(roll: Int, defender: B): AttackResult = {
+    val critRange = 20 - attacker.race.critRangeModifier
+    if (roll >= critRange) AttackResult.Crit
     else {
-      if (roll + c.attackBonus(defender) >= c.playerClass.targetAcModifier(
-        defender
-      )) {
+      val targetAc = defender.armorClass(attacker) + attacker.playerClass.targetAcModifier(defender) 
+      if (roll + attacker.attackBonus(defender) >= targetAc) {
         AttackResult.Hit
       } else AttackResult.Miss
     }
+  }
 
-  extension [D: Aligned: Raced] (c: Character) def calculateDamage(ar: AttackResult, defender: D): Int = {
+  extension[D: Aligned : Raced] (c: Character) def calculateDamage(ar: AttackResult, defender: D): Int = {
     val rawDamage = c.playerClass.baseDamage
       + c.strengthModifier
       + c.playerClass.extraDamage(defender)
@@ -85,7 +95,7 @@ given Combatant[Character] with {
   extension (c: Character) def takeDamage(dmg: Int): Character =
     c.copy(damage = c.damage + dmg)
 
-  extension (c: Character) def dead: Boolean =  hitPoints(c) <= 0
+  extension (c: Character) def dead: Boolean = hitPoints(c) <= 0
 
   extension[B: Combatant : Aligned : Raced] (character: Character) def attackBonus(defender: B): Int = {
     character.playerClass.attackStatMod(character) +
@@ -94,5 +104,5 @@ given Combatant[Character] with {
       character.race.attackModifier(defender)
   }
 
-  extension (c: Character) def acDexBonus: Int = c.dexterity.modifier
+  extension (c: Character) def acDexBonus: Int = c.dexterityModifier
 }

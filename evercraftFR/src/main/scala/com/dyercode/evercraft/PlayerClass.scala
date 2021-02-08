@@ -15,21 +15,13 @@ trait PlayerClass {
 
   def baseDamage: Int = 1
   def extraDamage[D : Aligned](defender: D): Int = 0
-
   def baseHitPoints: Int = 5
-
   def critMultiplier[A: Aligned](defender: A): Int = 2
-
   def baseAttack(ch: Character): Int = ch.level / 2
-
   def attackStatMod(ch: Character): Int = ch.strength.modifier
-
-  def targetAcModifier[A: Combatant](ch: A): Int = ch.armorClass
-
-  def acMod(ch: Character): Int = 0
-
+  def targetAcModifier[A: Combatant](ch: A): Int = 0
+  def acMod(self: Character): Int = 0
   def attackModifier[A: Combatant : Aligned](d: A): Int = 0
-
   def checkRequirements[A: Aligned](a: A): Boolean = true
 }
 
@@ -45,7 +37,7 @@ object Rogue extends PlayerClass {
   override def critMultiplier[A: Aligned](a: A): Int = 3
 
   override def targetAcModifier[A: Combatant](ch: A): Int = {
-    ch.armorClass - Math.max(0, ch.acDexBonus)
+    -Math.max(0, ch.acDexBonus)
   }
 
   override def attackStatMod(ch: Character): Int = ch.dexterity.modifier
@@ -59,7 +51,7 @@ object Monk extends PlayerClass {
   override def baseAttack(ch: Character): Int =
     (1 to ch.level).count(l => l % 2 == 0 || l % 3 == 0)
 
-  override def acMod(ch: Character): Int = Math.max(0, ch.wisdom.modifier)
+  override def acMod(self: Character): Int = Math.max(0, self.wisdom.modifier)
 }
 
 object Paladin extends PlayerClass {

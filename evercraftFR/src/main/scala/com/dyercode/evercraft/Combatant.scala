@@ -1,7 +1,7 @@
 package com.dyercode.evercraft
 
 trait Combatant[A] {
-  extension (a: A) def armorClass: Int
+  extension [B: Raced](a: A) def armorClass(attacker: B): Int
   extension (a: A) def hitPoints: Int
   extension [B : Combatant : Aligned : Raced] (a: A) def attack(roll: Int, d: B): AttackResult
   extension [B : Aligned : Raced] (a: A) def calculateDamage(ar: AttackResult, b : B): Int

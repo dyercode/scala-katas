@@ -30,7 +30,8 @@ class CharacterSuite
   }
 
   test("as a combatant I want to have armor class") {
-    Character(name = "billy", _alignment = Good).armorClass mustBe 10
+    val billy = Character(name = "billy", _alignment = Good)
+    billy.armorClass(billy) mustBe 10
   }
 
   test("as a combatant I want to have hitPoints") {
@@ -114,9 +115,8 @@ class CharacterSuite
   }
 
   test("dexterity modifier is added to armor class") {
-    val dodgy =
-      Character(name = "Dodgy", _alignment = Good, dexterity = Ability(12))
-    dodgy.armorClass mustBe 11
+    val dodgy = Character(name = "Dodgy", _alignment = Good, dexterity = Ability(12))
+    dodgy.armorClass(dodgy) mustBe 11
   }
 
   test("constitution modifier is added to hitpoints") {

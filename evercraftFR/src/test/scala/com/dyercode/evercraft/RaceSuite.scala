@@ -32,7 +32,7 @@ class RaceSpec extends AnyWordSpec with must.Matchers {
       }
 
       "has +2 armor class" in {
-        orc.armorClass mustBe 12
+        orc.armorClass(orc) mustBe 12
       }
     }
 
@@ -61,6 +61,25 @@ class RaceSpec extends AnyWordSpec with must.Matchers {
         dwarf.calculateDamage(Crit, orc) mustBe (dwarf.calculateDamage(Crit, dwarf) + 4)
       }
     }
-  }
 
+    "Elves rule dwarf/orcs drool" should {
+      val elf = Character(name = "elfie", _alignment = Alignment.Neutral, race = Elf)
+      "+1 to Dexterity Modifier" in {
+        elf.dexterityModifier mustBe 1
+      }
+
+      "-1 to Constitution Modifier" in {
+        elf.constitutionModifier mustBe -1
+      }
+
+      "adds 1 to critical range for critical hits (20 -> 19-20, 19-20 -> 18-20)" in {
+        elf.attack(20, elf) mustBe Crit
+        elf.attack(19, elf) mustBe Crit
+      }
+
+      "+2 to Armor Class when being attacked by orcs" in {
+        elf.armorClass(orc) mustBe (elf.armorClass(elf) + 2)
+      }
+    }
+  }
 }

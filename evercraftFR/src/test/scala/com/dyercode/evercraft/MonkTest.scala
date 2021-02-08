@@ -25,13 +25,13 @@ class MonkTest
     it("adds Wisdom to Armor Class in addition to Dexterity") {
       monk
         .copy(wisdom = Ability(14), dexterity = Ability(12))
-        .armorClass mustBe 13
+        .armorClass(monk) mustBe 13
     }
 
     it("does not subtract wisdom penalty from ac") {
       monk
         .copy(wisdom = Ability(1))
-        .armorClass mustBe 10
+        .armorClass(monk) mustBe 10
     }
 
     describe("attack roll") {
