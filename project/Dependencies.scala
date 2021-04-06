@@ -5,8 +5,8 @@ object Dependencies {
   // Versions
 
   // Libraries
-  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.3"
-  val scalacheck = "org.scalacheck" %% "scalacheck" % "1.15.2"
+  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.7"
+  val scalacheck = "org.scalacheck" %% "scalacheck" % "1.15.3"
 
   // Projects
   val fizzbuzzDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
