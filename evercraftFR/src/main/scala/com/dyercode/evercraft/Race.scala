@@ -31,14 +31,16 @@ case object Orc extends Race {
 case object Dwarf extends Race {
   override def constitutionModifier: Int = 1
   override def charismaModifier: Int = -1
-  override def hitPointModifier(character: Character): Int = character.constitutionModifier
-  override def attackModifier[D: Raced](defender: D): Int = defender.race match {
-    case Orc => 2
-    case _ => 0
-  }
+  override def hitPointModifier(character: Character): Int =
+    character.constitutionModifier
+  override def attackModifier[D: Raced](defender: D): Int =
+    defender.race match {
+      case Orc => 2
+      case _   => 0
+    }
   override def extraDamage[D: Raced](defender: D): Int = defender.race match {
     case Orc => 2
-    case _ => 0
+    case _   => 0
   }
 }
 
@@ -49,6 +51,6 @@ case object Elf extends Race {
 
   override def acMod[D: Raced](attacker: D): Int = attacker.race match {
     case Orc => 2
-    case _ => 0
+    case _   => 0
   }
 }

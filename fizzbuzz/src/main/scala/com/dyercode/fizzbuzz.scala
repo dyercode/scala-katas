@@ -6,9 +6,9 @@ enum FB:
 object FB {
   def apply(i: Int): FB | Int = i match {
     case x if isFizzBuzz(x) => FizzBuzz
-    case x if isFizz(x) => Fizz
-    case x if isBuzz(x) => Buzz
-    case x => x
+    case x if isFizz(x)     => Fizz
+    case x if isBuzz(x)     => Buzz
+    case x                  => x
   }
 }
 
@@ -29,8 +29,8 @@ trait Containable[T]:
   extension (x: T) def contains(y: T): Boolean
 
 given Containable[Int] with
-  extension (x: Int) def contains(y: Int): Boolean = x.toString contains y.toString
-
+  extension (x: Int)
+    def contains(y: Int): Boolean = x.toString contains y.toString
 
 trait Divisible[T]:
   extension (x: T) def divisibleBy(y: T): Boolean
