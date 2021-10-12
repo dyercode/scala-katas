@@ -5,14 +5,15 @@ object Dependencies {
   // Versions
 
   // Libraries
-  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.3"
-  val scalacheck = "org.scalacheck" %% "scalacheck" % "1.15.2"
+  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.10"
+  val scalacheck = "org.scalacheck" %% "scalacheck" % "1.15.4"
 
   // Projects
   val fizzbuzzDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val evercraftDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val evercraftFDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
-  val evercraftFrDependencies: Seq[ModuleID] = Seq(scalaTest % Test, scalacheck % Test)
+  val evercraftFrDependencies: Seq[ModuleID] =
+    Seq(scalaTest % Test, scalacheck % Test)
   val fibonacciDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val bowlingDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val leapDependencies: Seq[ModuleID] = Seq(scalaTest % Test)

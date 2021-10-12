@@ -2,53 +2,54 @@ package com.dyercode.bowling
 
 import scala.util.matching.Regex
 
-class Game(val tries: String = "") {
+case class Game(val tries: String = "") {
   def bowl(pins: String): Game = {
     Game(pins + tries)
   }
 
   def splitIntoRounds(throws: String): List[List[Int]] = {
-    val strike: Regex = "X(.*)".r
-    val pinsOrGutter = "([1-9]|-)"
-    val spare = s"$pinsOrGutter/(.*)".r
-    val normal = s"$pinsOrGutter$pinsOrGutter(.*)".r
+    type Pin = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+    type Gutter = '-'
+    type PinOrGutter = Pin | Gutter
 
-    def scoreToInt(s: String) = {
-      if (s == "-") 0 else s.toInt
+    val scoreToInt = (c: Char) =>
+      c match {
+        case _: Gutter => 0
+        case p: Pin    => p.asDigit
+      }
+
+    def inner(throws: List[Char]): List[List[Int]] = throws match {
+      case Nil         => Nil
+      case 'X' :: rest => List(10) :: inner(rest)
+      case (a: PinOrGutter) :: '/' :: rest =>
+        List(a.toInt, 10 - a.toInt) :: inner(rest)
+      case (a: PinOrGutter) :: (b: PinOrGutter) :: rest =>
+        List(a, b).map(scoreToInt) :: inner(rest)
     }
 
-    throws match {
-      case ""        => Nil
-      case strike(x) => List(10) :: splitIntoRounds(x)
-      case spare(x, rest) =>
-        List(x.toInt, 10 - x.toInt) :: splitIntoRounds(rest)
-      case normal(f1, f2, rest) =>
-        List(f1, f2).map(scoreToInt) :: splitIntoRounds(rest)
-    }
+    inner(throws.toCharArray.toList)
   }
 
   def score: Int = {
     val frames: List[List[Int]] = splitIntoRounds(tries)
 
-    def sumFrames(remainingRounds: List[List[Int]]): List[List[Int]] = {
+    def scoreStrikesAndSpares(
+        remainingRounds: List[List[Int]]
+    ): List[List[Int]] =
       remainingRounds match {
         case Nil         => Nil
         case head :: Nil => head :: Nil
-        case head :: tail if head.head == 10 =>
-          List(10 + tail.flatten.take(2).sum) :: sumFrames(tail)
-        case _ :: tail => sumFrames(tail)
+        case List(10) :: tail =>
+          List(10 + tail.flatten.take(2).sum) :: scoreStrikesAndSpares(tail)
+        case List(a, b) :: tail if a + b == 10 =>
+          List(10 + tail.flatten.take(1).sum) :: scoreStrikesAndSpares(tail)
+        case head :: tail => head :: scoreStrikesAndSpares(tail)
       }
-    }
 
-    val frameSums = sumFrames(frames)
+    scoreStrikesAndSpares(frames)
+      .take(10)
+      .flatten
+      .sum
 
-    frameSums.take(10).flatten.sum
-
-  }
-}
-
-object Game {
-  def apply(tries: String = ""): Game = {
-    new Game(tries)
   }
 }

@@ -16,4 +16,13 @@ class GameSuite extends AnyFunSuite with must.Matchers {
   test("a gutter game is zero points") {
     Game("--------------------").score mustBe 0
   }
+
+  test("a spare scores adds the next roll") {
+    Game("1/-5").score mustBe 15
+    Game("1/5-").score mustBe 20
+  }
+
+  test("game with non-special number of pins hit is straightforward") {
+    Game("11111111111111111111").score mustBe 20
+  }
 }
