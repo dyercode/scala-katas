@@ -4,7 +4,7 @@ import Keys._
 object Dependencies {
   // Versions
   object Versions {
-    val scalaTest = "3.2.10"
+    val scalaTest = "3.2.11"
     val scalaTestCheck = "3.2.10.0"
     val scalaCheck = "1.15.4"
   }

@@ -3,7 +3,7 @@ import common._
 
 name := "scala-katas"
 
-ThisBuild / scalaVersion := "3.1.0"
+ThisBuild / scalaVersion := "3.1.1"
 
 lazy val fizzbuzz = (
   KataProject("fizzbuzz")

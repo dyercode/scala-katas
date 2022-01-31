@@ -34,7 +34,7 @@ class Game(val tries: String = "") {
       remainingRounds match {
         case Nil         => Nil
         case head :: Nil => head :: Nil
-        case head :: tail if head.head == 10 =>
+        case (10 :: _) :: tail =>
           List(10 + tail.flatten.take(2).sum) :: sumFrames(tail)
         case _ :: tail => sumFrames(tail)
       }
@@ -43,12 +43,5 @@ class Game(val tries: String = "") {
     val frameSums = sumFrames(frames)
 
     frameSums.take(10).flatten.sum
-
-  }
-}
-
-object Game {
-  def apply(tries: String = ""): Game = {
-    new Game(tries)
   }
 }
