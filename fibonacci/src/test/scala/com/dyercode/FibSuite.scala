@@ -3,12 +3,15 @@ package com.dyercode
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
 
+import scala.annotation.tailrec
+
 class FibSuite extends AnyFunSuite with must.Matchers {
 
-  final def fib(n: Int): Int = n match {
-    case 1 => 0
-    case 2 => 1
-    case _ => fib(n - 1) + fib(n - 2)
+  @tailrec
+  final def fib(n: Int, a: Int = 0, b: Int = 1): Int = n match {
+    case 1 => a
+    case 2 => b
+    case _ => fib(n - 1, b, a + b)
   }
 
   test("third is 1") {

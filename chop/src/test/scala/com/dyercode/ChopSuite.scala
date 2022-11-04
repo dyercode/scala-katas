@@ -26,7 +26,6 @@ class ChopSuite extends AnyFunSuite with must.Matchers {
       if (low > high) None
       else {
         val mid = (low + high) / 2
-        // println(s"mid: $mid, low: $low, high: $high")
         l(mid).compare(i) match {
           case 0 => Some(mid)
           case 1 => search(mid - 1, low)

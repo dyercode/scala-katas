@@ -3,49 +3,49 @@ import common._
 
 name := "scala-katas"
 
-ThisBuild / scalaVersion := "3.1.1"
+ThisBuild / scalaVersion := "3.2.1"
 
 lazy val fizzbuzz = (
-  KataProject("fizzbuzz")
+  kataProject("fizzbuzz")
     settings (libraryDependencies ++= fizzbuzzDependencies)
 )
 
 lazy val evercraft = (
-  KataProject("evercraft")
+  kataProject("evercraft")
     settings (libraryDependencies ++= evercraftDependencies)
 )
 
 lazy val evercraftF = (
-  KataProject("evercraftF")
+  kataProject("evercraftF")
     settings (libraryDependencies ++= evercraftFDependencies)
 )
 
 lazy val evercraftFr = (
-  KataProject("evercraftFR")
+  kataProject("evercraftFR")
     settings (libraryDependencies ++= evercraftFrDependencies)
 )
 
 lazy val fibonacci = (
-  KataProject("fibonacci")
+  kataProject("fibonacci")
     settings (libraryDependencies ++= fibonacciDependencies)
 )
 
 lazy val bowling = (
-  KataProject("bowling")
+  kataProject("bowling")
     settings (libraryDependencies ++= bowlingDependencies)
 )
 
 lazy val leap = (
-  KataProject("leap")
+  kataProject("leap")
     settings (libraryDependencies ++= leapDependencies)
 )
 
 lazy val chop = (
-  KataProject("chop")
+  kataProject("chop")
     settings (libraryDependencies ++= leapDependencies)
 )
 
 lazy val triangle = (
-  KataProject("triangle")
+  kataProject("triangle")
     settings (libraryDependencies ++= triangleDependencies)
 )

@@ -2,5 +2,5 @@ import sbt._
 import Keys._
 
 object common {
-  def KataProject(name: String): Project = Project(name, file(name))
+  def kataProject(name: String): Project = Project(name, file(name))
 }
