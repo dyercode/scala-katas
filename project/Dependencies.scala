@@ -4,9 +4,9 @@ import Keys._
 object Dependencies {
   // Versions
   object Versions {
-    val scalaTest = "3.2.14"
+    val scalaTest = "3.2.19"
     val scalaTestCheck = "3.2.10.0"
-    val scalaCheck = "1.17.0"
+    val scalaCheck = "1.18.1"
   }
 
   // Libraries
@@ -26,4 +26,5 @@ object Dependencies {
   val leapDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val chopDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val triangleDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
+  val digitsDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
 }

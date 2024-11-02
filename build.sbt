@@ -3,7 +3,7 @@ import common._
 
 name := "scala-katas"
 
-ThisBuild / scalaVersion := "3.2.1"
+ThisBuild / scalaVersion := "3.6.1"
 
 lazy val fizzbuzz = (
   kataProject("fizzbuzz")
@@ -48,4 +48,9 @@ lazy val chop = (
 lazy val triangle = (
   kataProject("triangle")
     settings (libraryDependencies ++= triangleDependencies)
+)
+
+lazy val digits = (
+  kataProject("digits")
+    settings (libraryDependencies ++= digitsDependencies)
 )
