@@ -7,6 +7,7 @@ object Dependencies {
     val scalaTest = "3.2.19"
     val scalaTestCheck = "3.2.10.0"
     val scalaCheck = "1.18.1"
+    val iron = "2.6.0"
   }
 
   // Libraries
@@ -14,6 +15,7 @@ object Dependencies {
   val scalacheck = "org.scalacheck" %% "scalacheck" % Versions.scalaCheck
   val scalaTestCheck =
     "org.scalatestplus" %% "scalacheck-1-15_3" % Versions.scalaTestCheck // keep in mind that this exists, but not working atm
+  val iron = "io.github.iltotore" %% "iron" % Versions.iron
 
   // Projects
   val fizzbuzzDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
@@ -26,5 +28,5 @@ object Dependencies {
   val leapDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val chopDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val triangleDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
-  val digitsDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
+  val digitsDependencies: Seq[ModuleID] = Seq(iron, scalaTest % Test)
 }

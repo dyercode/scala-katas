@@ -2,15 +2,17 @@ package com.dyercode
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
+import io.github.iltotore.iron.*
+import io.github.iltotore.iron.constraint.numeric.*
 
 import scala.annotation.tailrec
 
 class DigitsSuite extends AnyFunSuite with must.Matchers {
 
   def toDigits(i: Int): Stream[Int] = i.toString.map(_.asDigit).toStream
-  def ds(n: Int): Stream[Int] = toDigits(n) #::: ds(n + 1)
+  def ds(n: Int = 0): Stream[Int] = toDigits(n) #::: ds(n + 1)
 
-  def digits(n: Int): Int = ds(0).drop(n).head
+  def digits(n: Int :| Positive): Int = ds().drop(n).head
 
   test("hundredth is 5 they say") {
     digits(100) mustBe 5
