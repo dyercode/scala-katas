@@ -9,17 +9,17 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            java: 8
+            java: "openjdk@1.17.0"
           - os: ubuntu-latest
-            java: 15
+            java: "graalvm@21.1.0"
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout
       uses: actions/checkout@v1
     - name: Setup
-      uses: olafurpg/setup-scala@v10
+      uses: olafurpg/setup-scala@v11
       with:
-        java-version: "adopt@1.${{ matrix.java }}"
+        java-version: "${{ matrix.java }}"
     - name: Build and test
       run: sbt -v -Dfile.encoding=UTF8 +test
       shell: bash
