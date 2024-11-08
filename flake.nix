@@ -13,7 +13,10 @@
     in
     {
       devShells.${system}.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [ sbt ];
+        nativeBuildInputs = with pkgs; [
+          sbt
+          httplz
+        ];
 
         shellHook = "";
       };

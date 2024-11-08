@@ -1,18 +1,13 @@
-package com.dyercode
+package com.dyercode.digits
 
 import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.must
-import io.github.iltotore.iron.*
-import io.github.iltotore.iron.constraint.numeric.*
+import org.scalatest.matchers.must._
 
 import scala.annotation.tailrec
+import Digits.{digits, ds}
+import io.github.iltotore.iron.autoRefine
 
-class DigitsSuite extends AnyFunSuite with must.Matchers {
-
-  def toDigits(i: Int): Stream[Int] = i.toString.map(_.asDigit).toStream
-  def ds(n: Int = 0): Stream[Int] = toDigits(n) #::: ds(n + 1)
-
-  def digits(n: Int :| Positive): Int = ds().drop(n).head
+class DigitsSuite extends AnyFunSuite with Matchers {
 
   test("hundredth is 5 they say") {
     digits(100) mustBe 5
