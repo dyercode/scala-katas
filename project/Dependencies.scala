@@ -5,7 +5,7 @@ object Dependencies {
   // Versions
   object Versions {
     val scalaTest = "3.2.19"
-    val scalaTestCheck = "3.2.10.0"
+    val scalaTestCheck = "3.2.19.0"
     val scalaCheck = "1.18.1"
     val iron = "2.6.0"
     val cats = "2.12.0"
@@ -15,7 +15,7 @@ object Dependencies {
   val scalaTest = "org.scalatest" %% "scalatest" % Versions.scalaTest
   val scalacheck = "org.scalacheck" %% "scalacheck" % Versions.scalaCheck
   val scalaTestCheck =
-    "org.scalatestplus" %% "scalacheck-1-15_3" % Versions.scalaTestCheck // keep in mind that this exists, but not working atm
+    "org.scalatestplus" %% "scalacheck-1-18" % Versions.scalaTestCheck
   val iron = "io.github.iltotore" %% "iron" % Versions.iron
   val cats = "org.typelevel" %% "cats-core" % Versions.cats
 
@@ -27,7 +27,8 @@ object Dependencies {
     Seq(scalaTest, scalacheck).map(_ % Test)
   val fibonacciDependencies: Seq[ModuleID] =
     Seq(scalacheck % Test, scalaTest % Test)
-  val bowlingDependencies: Seq[ModuleID] = Seq(cats, scalaTest % Test)
+  val bowlingDependencies: Seq[ModuleID] =
+    Seq(cats, scalaTestCheck % Test, scalaTest % Test)
   val leapDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val chopDependencies: Seq[ModuleID] = Seq(scalaTest % Test)
   val triangleDependencies: Seq[ModuleID] = Seq(iron, scalaTest % Test)

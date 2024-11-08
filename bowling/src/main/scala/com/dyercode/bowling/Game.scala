@@ -21,7 +21,8 @@ class Game(val tries: String = "") {
       case ""        => Nil
       case strike(x) => List(10) :: splitIntoRounds(x)
       case spare(x, rest) =>
-        List(x.toInt, 10 - x.toInt) :: splitIntoRounds(rest)
+        val s = scoreToInt(x)
+        List(s, 10 - s) :: splitIntoRounds(rest)
       case normal(f1, f2, rest) =>
         List(f1, f2).map(scoreToInt) :: splitIntoRounds(rest)
     }
@@ -36,7 +37,9 @@ class Game(val tries: String = "") {
         case head :: Nil => head :: Nil
         case (10 :: _) :: tail =>
           List(10 + tail.flatten.take(2).sum) :: sumFrames(tail)
-        case _ :: tail => sumFrames(tail)
+        case List(a, b) :: tail if a + b == 10 =>
+          List(10 + tail.flatten.headOption.getOrElse(0)) :: sumFrames(tail)
+        case a :: tail => a :: sumFrames(tail)
       }
     }
 
