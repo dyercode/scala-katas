@@ -1,9 +1,8 @@
 package com.dyercode.evercraft
 
-import org.scalatest.wordspec.AnyWordSpec
+import com.dyercode.evercraft.AttackResult.*
 import org.scalatest.matchers.must
-import com.dyercode.evercraft.Character._
-import com.dyercode.evercraft.AttackResult._
+import org.scalatest.wordspec.AnyWordSpec
 
 class RaceSpec extends AnyWordSpec with must.Matchers {
 

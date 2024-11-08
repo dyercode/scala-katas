@@ -1,9 +1,8 @@
 package com.dyercode.evercraft
 
+import com.dyercode.evercraft.Alignment.*
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
-import com.dyercode.evercraft.Alignment._
-import Character._
 
 class PlayerClassTest extends AnyFunSuite with must.Matchers {
   test("character's base hp can be modified by class") {

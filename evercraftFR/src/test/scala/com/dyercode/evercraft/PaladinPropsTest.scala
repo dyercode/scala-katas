@@ -1,11 +1,10 @@
 package com.dyercode.evercraft
 
-import org.scalacheck.Prop.{forAll, propBoolean, throws}
-import org.scalacheck.Properties
 import org.scalacheck.Gen
+import org.scalacheck.Prop.forAll
+import org.scalacheck.Prop.propBoolean
+import org.scalacheck.Properties
 import org.scalatest.matchers.must
-import com.dyercode.evercraft.Character
-import com.dyercode.evercraft.Paladin
 
 class PaladinPropsTests extends Properties("Paladin") with must.Matchers {
   def makePaladin(lvl: Int): Character = {

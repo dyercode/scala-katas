@@ -1,7 +1,7 @@
 package com.dyercode.evercraft
 
-import com.dyercode.evercraft.Alignment._
-import com.dyercode.evercraft.AttackResult._
+import com.dyercode.evercraft.Alignment.*
+import com.dyercode.evercraft.AttackResult.*
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
 

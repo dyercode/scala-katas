@@ -1,7 +1,10 @@
 package com.dyercode.evercraft
 
-import org.scalacheck.Prop.{forAll, propBoolean, throws}
-import org.scalacheck.{Gen, Properties}
+import org.scalacheck.Gen
+import org.scalacheck.Prop.forAll
+import org.scalacheck.Prop.propBoolean
+import org.scalacheck.Prop.throws
+import org.scalacheck.Properties
 
 class AbilityPropsTests extends Properties("Ability") {
   val abilityGen: Gen[Int] = Gen.choose(1, 20)

@@ -2,7 +2,8 @@ package com.dyercode.evercraft
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
-import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor2}
+import org.scalatest.prop.TableDrivenPropertyChecks
+import org.scalatest.prop.TableFor2
 
 class AbilityTests
     extends AnyFunSuite

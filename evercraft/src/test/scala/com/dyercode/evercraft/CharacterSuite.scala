@@ -1,9 +1,11 @@
 package com.dyercode.evercraft
 
+import org.scalatest.BeforeAndAfter
+import org.scalatest.OneInstancePerTest
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must
-import org.scalatest.{BeforeAndAfter, OneInstancePerTest}
-import Alignment._
+
+import Alignment.*
 
 class CharacterSuite
     extends AnyFunSuite

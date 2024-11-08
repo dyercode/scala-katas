@@ -4,6 +4,9 @@ import common._
 name := "scala-katas"
 
 ThisBuild / scalaVersion := "3.6.1"
+ThisBuild / semanticdbEnabled := true
+ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
+ThisBuild / scalacOptions += "-Wunused:all"
 
 lazy val fizzbuzz = (
   kataProject("fizzbuzz")

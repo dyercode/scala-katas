@@ -1,8 +1,6 @@
 package com.dyercode.evercraft
-
-import com.dyercode.evercraft.Character._
-import com.dyercode.evercraft.Alignment._
-import com.dyercode.evercraft.AttackResult._
+import com.dyercode.evercraft.Alignment.*
+import com.dyercode.evercraft.AttackResult.*
 import org.scalatest.matchers.must
 import org.scalatest.wordspec.AnyWordSpec
 

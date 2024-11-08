@@ -1,9 +1,5 @@
 package com.dyercode.evercraft
 
-import com.dyercode.evercraft.Alignment
-import com.dyercode.evercraft.Aligned
-import com.dyercode.evercraft.Race
-import com.dyercode.evercraft.Raced
 
 case class Character(
     name: String,

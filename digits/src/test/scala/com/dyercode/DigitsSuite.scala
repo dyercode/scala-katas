@@ -1,11 +1,10 @@
 package com.dyercode.digits
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.must._
-
-import scala.annotation.tailrec
-import Digits.{digits, ds}
 import io.github.iltotore.iron.autoRefine
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.must.*
+
+import Digits.{digits, ds}
 
 class DigitsSuite extends AnyFunSuite with Matchers {
 

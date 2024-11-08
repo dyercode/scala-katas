@@ -1,7 +1,5 @@
 package com.dyercode.evercraft
-
-import com.dyercode.evercraft.Combatant
-import com.dyercode.evercraft.Alignment._
+import com.dyercode.evercraft.Alignment.*
 
 trait PlayerClass {
   /*
